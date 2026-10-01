@@ -1,61 +1,59 @@
-# 🌐 Portal Mulheres na Ciência - Front-end (Angular)
+# PortalMulheresNaCiencia
 
-Aplicação front-end do **Portal Mulheres na Ciência**, desenvolvida com Angular.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
 
-## 📋 Sobre o Projeto
+## Development server
 
-O Portal Mulheres na Ciência reúne informações sobre cientistas brasileiras e internacionais, dando visibilidade às suas trajetórias e contribuições nas áreas de STEM (Ciência, Tecnologia, Engenharia e Matemática).
-
-### Funcionalidades
-
-- **Catálogo de Cientistas:** Cards visuais listando todas as cientistas cadastradas.
-- **Perfil da Cientista:** Página detalhada com biografia, área de atuação e contribuições.
-- **Busca e Filtro:** Pesquisa por nome e filtragem por área científica.
-- **Linha do Tempo:** Visualização de marcos históricos e descobertas.
-- **Cientista do Dia:** Destaque diário de uma cientista na página inicial.
-
-## 🛠️ Tecnologias
-
-- [Angular](https://angular.dev/)
-- TypeScript
-- HTML5 / CSS3
-
-## 🚀 Como Rodar o Projeto
-
-### Pré-requisitos
-
-- [Node.js](https://nodejs.org/) (versão 18 ou superior)
-- [Angular CLI](https://angular.dev/tools/cli) (`npm install -g @angular/cli`)
-
-### Instalação
+To start a local development server, run:
 
 ```bash
-# Clone o repositório
-git clone https://github.com/Portal-Mulheres-na-Ciencia/web-portal.git
-
-# Entre na pasta do projeto
-cd web-portal
-
-# Instale as dependências
-npm install
-
-# Rode a aplicação
 ng serve
 ```
 
-Acesse `http://localhost:4200` no navegador.
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## 🌳 Estratégia de Branches
+## Code scaffolding
 
-| Branch | Finalidade |
-|---|---|
-| `main` | Versão estável e final (entrega) |
-| `develop` | Branch de integração da equipe |
-| `feature/*` | Desenvolvimento de novas funcionalidades |
-| `bugfix/*` | Correção de bugs |
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-> ⚠️ **Regra:** Nunca faça push direto na `main` ou `develop`. Sempre abra um Pull Request!
+```bash
+ng generate component component-name
+```
 
-## 👩‍💻 Equipe
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-Arthur Vieira, Cleber Borges, Davi Vinicius, Enzo Theodoro, Guilherme Rodrigues, Jonathan Santos.
+```bash
+ng generate --help
+```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
