@@ -57,3 +57,68 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+```mermaid
+classDiagram
+    class Usuario {
+        +Integer idUsuario
+        +String nome
+        +String email
+        +String senhaHash
+        +String dataCriacao
+    }
+
+    class SugestaoCientista {
+        +Integer idSugestaoCientista
+        +String nomeCientista
+        +String justificativa
+        +String nomeSugestor
+        +String emailSugestor
+        +Date dataSugestao
+        +String status
+    }
+
+    class Cientista {
+        +Integer idCientista
+        +String nome
+        +String biografia
+        +String instituicaoPrincipal
+        +Date dataNascimento
+        +Date dataFalecimento
+        +String nacionalidade
+    }
+
+    class AreaAtuacao {
+        +Integer idAreaAtuacao
+        +String nome
+        +String descricao
+    }
+
+    class Contribuicao {
+        +Integer idContribuicao
+        +String titulo
+        +String descricao
+        +Integer ano
+        +String linkReferencia
+    }
+
+    class Premio {
+        +Integer idPremio
+        +String nome
+        +String instituicao
+    }
+
+    class CientistaPremio {
+        +Date recebidoEm
+    }
+
+    %% Relacionamentos
+    Usuario "1" <-- "0..*" SugestaoCientista : revisa
+    SugestaoCientista "1" <-- "0..1" Cientista : origina
+    Cientista "1" --> "1..*" AreaAtuacao : atua em
+    Cientista "1" --> "0..*" Contribuicao : possui
+    
+    %% Relacionamento com classe associativa
+    Cientista "1" --> "0..*" CientistaPremio : recebe
+    CientistaPremio "0..*" --> "1" Premio : referente a
+```
