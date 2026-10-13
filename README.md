@@ -1,124 +1,61 @@
-# PortalMulheresNaCiencia
+# 🌐 Portal Mulheres na Ciência - Front-end (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
+Aplicação front-end do **Portal Mulheres na Ciência**, desenvolvida com Angular.
 
-## Development server
+## 📋 Sobre o Projeto
 
-To start a local development server, run:
+O Portal Mulheres na Ciência reúne informações sobre cientistas brasileiras e internacionais, dando visibilidade às suas trajetórias e contribuições nas áreas de STEM (Ciência, Tecnologia, Engenharia e Matemática).
+
+### Funcionalidades
+
+- **Catálogo de Cientistas:** Cards visuais listando todas as cientistas cadastradas.
+- **Perfil da Cientista:** Página detalhada com biografia, área de atuação e contribuições.
+- **Busca e Filtro:** Pesquisa por nome e filtragem por área científica.
+- **Linha do Tempo:** Visualização de marcos históricos e descobertas.
+- **Cientista do Dia:** Destaque diário de uma cientista na página inicial.
+
+## 🛠️ Tecnologias
+
+- [Angular](https://angular.dev/)
+- TypeScript
+- HTML5 / CSS3
+
+## 🚀 Como Rodar o Projeto
+
+### Pré-requisitos
+
+- [Node.js](https://nodejs.org/) (versão 18 ou superior)
+- [Angular CLI](https://angular.dev/tools/cli) (`npm install -g @angular/cli`)
+
+### Instalação
 
 ```bash
+# Clone o repositório
+git clone https://github.com/Portal-Mulheres-na-Ciencia/web-portal.git
+
+# Entre na pasta do projeto
+cd web-portal
+
+# Instale as dependências
+npm install
+
+# Rode a aplicação
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Acesse `http://localhost:4200` no navegador.
 
-## Code scaffolding
+## 🌳 Estratégia de Branches
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Branch | Finalidade |
+|---|---|
+| `main` | Versão estável e final (entrega) |
+| `develop` | Branch de integração da equipe |
+| `feature/*` | Desenvolvimento de novas funcionalidades |
+| `bugfix/*` | Correção de bugs |
 
-```bash
-ng generate component component-name
-```
+> ⚠️ **Regra:** Nunca faça push direto na `main` ou `develop`. Sempre abra um Pull Request!
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 👩‍💻 Equipe
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-```mermaid
-classDiagram
-    class Usuario {
-        +Integer idUsuario
-        +String nome
-        +String email
-        +String senhaHash
-        +String dataCriacao
-    }
-
-    class SugestaoCientista {
-        +Integer idSugestaoCientista
-        +String nomeCientista
-        +String justificativa
-        +String nomeSugestor
-        +String emailSugestor
-        +Date dataSugestao
-        +String status
-    }
-
-    class Cientista {
-        +Integer idCientista
-        +String nome
-        +String biografia
-        +String instituicaoPrincipal
-        +Date dataNascimento
-        +Date dataFalecimento
-        +String nacionalidade
-    }
-
-    class AreaAtuacao {
-        +Integer idAreaAtuacao
-        +String nome
-        +String descricao
-    }
-
-    class Contribuicao {
-        +Integer idContribuicao
-        +String titulo
-        +String descricao
-        +Integer ano
-        +String linkReferencia
-    }
-
-    class Premio {
-        +Integer idPremio
-        +String nome
-        +String instituicao
-    }
-
-    class CientistaPremio {
-        +Date recebidoEm
-    }
-
-    %% Relacionamentos
-    Usuario "1" <-- "0..*" SugestaoCientista : revisa
-    SugestaoCientista "1" <-- "0..1" Cientista : origina
-    Cientista "1" --> "1..*" AreaAtuacao : atua em
-    Cientista "1" --> "0..*" Contribuicao : possui
-    
-    %% Relacionamento com classe associativa
-    Cientista "1" --> "0..*" CientistaPremio : recebe
-    CientistaPremio "0..*" --> "1" Premio : referente a
-```
+Arthur Vieira, Cleber Borges, Davi Vinicius, Enzo Theodoro, Guilherme Rodrigues, Jonathan Santos.
