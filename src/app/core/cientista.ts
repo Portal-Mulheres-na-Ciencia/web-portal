@@ -8,7 +8,7 @@ export interface Cientista {
   biografia: string;
   instituicao: string;
   dataNascimento: Date;
-  dataFalecimento: Date;
+  dataFalecimento?: Date;
   nacionalidade: string;
 
   areas: Area[];

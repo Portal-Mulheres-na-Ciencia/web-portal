@@ -1,8 +1,8 @@
 import { Premio } from './premio';
 import { Cientista } from './cientista';
 
-export interface PremioRecebido {
+export interface PremioRecebido{
   cientista: Cientista;
   premio: Premio;
-  data: Date;
+  ano: number;
 }
