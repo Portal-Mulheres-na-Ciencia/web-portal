@@ -17,7 +17,7 @@
       <h1 class="titulo">{{ cientista().nome }}</h1>
 
       <div class="linha-meta meio">
-        <span class="vida">{{ cientista().dataNascimento.getFullYear() }} — {{ cientista().dataFalecimento.getFullYear()}}</span>
+        <span class="vida">{{ cientista().dataNascimento.getFullYear() }} — {{ cientista().dataFalecimento ? cientista().dataFalecimento!.getFullYear() : "Atual" }}</span>
         <mat-chip-set class="areas" aria-label="Áreas de destaque">
           @for (area of cientista().areas; track area.id) {
             <mat-chip appearance="outlined">{{ area.nome }}</mat-chip>

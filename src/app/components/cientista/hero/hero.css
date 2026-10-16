@@ -83,7 +83,7 @@
 }
 
 .biografia {
-  margin: 2rem 0 0;
+  margin: .5rem 0 0;
   color: var(--mat-sys-on-surface);
 
   font: var(--mat-sys-title-large);
