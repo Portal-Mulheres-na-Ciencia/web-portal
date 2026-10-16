@@ -11,7 +11,7 @@ import { Cientista } from '../../../core/cientista';
   styleUrl: './hero.css',
   templateUrl: './hero.html',
 })
-export class Hero {
+export class HeroComponent {
   cientista = input.required<Cientista>();
 
   protected rolarParaSecao(id: string) {
