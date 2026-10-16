@@ -1,0 +1,43 @@
+<section class="hero-fundo">
+
+  <mat-card class="hero-card" appearance="outlined">
+    <mat-card-content class="conteudo-interno">
+
+      <div class="linha-meta topo">
+        <div class="icone-texto">
+          <mat-icon>globe</mat-icon>
+          <span>{{ cientista().nacionalidade }}</span>
+        </div>
+        <div class="icone-texto">
+          <mat-icon>school</mat-icon>
+          <span>{{ cientista().instituicao }}</span>
+        </div>
+      </div>
+
+      <h1 class="titulo">{{ cientista().nome }}</h1>
+
+      <div class="linha-meta meio">
+        <span class="vida">{{ cientista().dataNascimento.getFullYear() }} — {{ cientista().dataFalecimento.getFullYear()}}</span>
+        <mat-chip-set class="areas" aria-label="Áreas de destaque">
+          @for (area of cientista().areas; track area.id) {
+            <mat-chip appearance="outlined">{{ area.nome }}</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+
+      <p class="biografia">
+        {{ cientista().biografia }}
+      </p>
+
+    </mat-card-content>
+    <button matButton="filled" class="btn-acao-compacta">
+      <mat-icon>share</mat-icon>
+      Compartilhar
+    </button>
+  </mat-card>
+
+  <div class="setinha" (click)="rolarParaSecao('contribuicoes')">
+    <mat-icon>keyboard_double_arrow_up</mat-icon>
+  </div>
+
+</section>
