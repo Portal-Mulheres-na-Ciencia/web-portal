@@ -1,11 +1,16 @@
-import { Service } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { Contribuicao } from '../core/contribuicao';
-import { Observable, of } from 'rxjs';
+import { Observable, of, map } from 'rxjs';
 import { PremioRecebido } from '../core/premio-recebido';
 import { ItemLinhaDoTempo } from '../core/item-linha-do-tempo';
+import { CientistaService } from './cientista';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Cientista } from '../core/cientista';
 
 @Service()
 export class LinhaDoTempoService {
+  cientistaService = inject(CientistaService);
+
   /**
    * Constrói a linha do tempo geral de uma cientista.
    *
@@ -13,7 +18,14 @@ export class LinhaDoTempoService {
    * @returns Uma lista unificada de contribuições e prêmios, ordenada cronologicamente pelo ano.
    */
   public buscarDe(idCientista: number): Observable<ItemLinhaDoTempo[]> {
-    return of([]);
+    return this.cientistaService.buscar(idCientista).pipe(
+      map((cientista) => {
+        if (!cientista) return [];
+        const linhaDoTempo: ItemLinhaDoTempo[] = [...cientista.contribuicoes, ...cientista.premios];
+
+        return linhaDoTempo.sort((a, b) => a.ano - b.ano);
+      }),
+    );
   }
 
   /**
