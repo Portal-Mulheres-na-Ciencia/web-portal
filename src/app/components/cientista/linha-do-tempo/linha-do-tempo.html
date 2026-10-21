@@ -1,0 +1,27 @@
+<aside class="linha-do-tempo">
+<!--  <h2 class="linha-do-tempo__titulo">Linha do Tempo: </h2>-->
+
+  <ul class="lista-linha-do-tempo">
+    @for (item of itens(); track $index; let i = $index, total = $count) {
+      <li
+        class="item-linha-do-tempo"
+        [style.--cor-item]="calcularCor(i, total)"
+      >
+        <span class="ano">{{ item.ano }}</span>
+        <div class="divisor"></div>
+        @if (isPremioRecebido(item)) {
+          <div>
+            <mat-icon class="icone">trophy</mat-icon>
+            <span>{{ item.premio.nome }}</span>
+          </div>
+        } @else {
+          <div>
+            <mat-icon class="icone">docs</mat-icon>
+            <span>{{ item.titulo }}</span>
+          </div>
+        }
+
+      </li>
+    }
+  </ul>
+</aside>

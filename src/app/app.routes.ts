@@ -3,6 +3,7 @@ import { HomePage } from './components/home/home';
 import { CatalogoPage } from './components/catalogo/catalogo';
 import { CientistaPage } from './components/cientista/cientista';
 import { NaoEncontradoPage } from './components/nao-encontrado/nao-encontrado';
+import { PaletaCoresComponent } from './components/paleta-cores/paleta-cores';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,10 @@ export const routes: Routes = [
   {
     path: 'cientista/:id',
     component: CientistaPage
+  },
+  {
+    path: 'cores',
+    component: PaletaCoresComponent
   },
   {
     path: '**',

@@ -1,1 +1,8 @@
-<p>cientista works!</p>
+@if (cientista(); as dadosCientista) {
+  <app-hero [cientista]="dadosCientista"/>
+} @else {
+  <div class="carregando">
+    <p>Carregando perfil da cientista...</p>
+  </div>
+}
+<app-linha-do-tempo [itens]="linhaDoTempo()"/>

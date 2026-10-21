@@ -1,0 +1,130 @@
+.hero-fundo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--mat-sys-primary-container);
+  min-height: calc(100svh - 4rem);
+  padding: 2rem 1.5rem;
+  position: relative;
+}
+
+.hero-card {
+  overflow: hidden;
+
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+
+  width: min-content;
+  max-width: none;
+  margin-bottom: 3rem;
+  border-radius: 0;
+}
+
+.conteudo-interno {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0;
+}
+
+.linha-meta {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.linha-meta.topo {
+  flex-wrap: wrap;
+
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.linha-meta.meio {
+  align-items: center;
+  gap: 1rem;
+
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.icone-texto {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font: var(--mat-sys-label-medium);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.titulo {
+  color: var(--mat-sys-on-primary-container);
+  margin: 0;
+
+  font: var(--mat-sys-display-large);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.vida {
+  font: var(--mat-sys-label-large);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.areas {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.biografia {
+  margin: .5rem 0 0;
+  color: var(--mat-sys-on-surface);
+
+  font: var(--mat-sys-title-large);
+  text-align: justify;
+  padding-top: 0;
+}
+
+.btn-acao-compacta {
+  width: fit-content;
+  padding: 0.5rem 2rem;
+  margin: 1rem auto 0;
+}
+
+.setinha {
+  color: var(--mat-sys-on-primary-container);
+  animation: pular 2s infinite;
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 1rem;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  -webkit-tap-highlight-color: transparent;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@keyframes pular {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}

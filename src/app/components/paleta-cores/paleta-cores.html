@@ -1,0 +1,40 @@
+<div class="paleta-container">
+  <header class="paleta-header">
+    <h1>🎨 Paleta de Cores do Tema Material (Rose & Red)</h1>
+    <p>
+      Estas são as variáveis do sistema (Material 3) definidas pelo tema configurado em 
+      <code>material-theme.scss</code> (Primary: <strong>Rose</strong>, Tertiary: <strong>Red</strong>).
+    </p>
+  </header>
+
+  @for (grupo of grupos; track grupo.titulo) {
+    <section class="grupo-secao">
+      <div class="grupo-cabecalho">
+        <h2>{{ grupo.titulo }}</h2>
+        <p>{{ grupo.descricao }}</p>
+      </div>
+
+      <div class="cards-grid">
+        @for (cor of grupo.cores; track cor.variavel) {
+          <div class="cor-card">
+            <!-- Amostra da cor -->
+            <div 
+              class="cor-amostra" 
+              [style.background-color]="'var(' + cor.variavel + ')'"
+              [style.color]="cor.onVariavel ? 'var(' + cor.onVariavel + ')' : '#000'"
+            >
+              <span class="amostra-texto">Aa</span>
+            </div>
+
+            <!-- Detalhes e nome da variável -->
+            <div class="cor-info">
+              <strong class="cor-nome">{{ cor.nome }}</strong>
+              <code class="cor-var">var({{ cor.variavel }})</code>
+              <small class="cor-desc">{{ cor.descricao }}</small>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+</div>
