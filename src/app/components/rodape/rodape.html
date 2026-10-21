@@ -1,0 +1,44 @@
+<footer class="rodape">
+  <div class="colunas">
+    <div class="marca">
+      <p class="marca-nome">Portal Mulheres na Ciência</p>
+      <p>Dando visibilidade às trajetórias de cientistas em STEM.</p>
+    </div>
+
+    <nav aria-label="Rodapé">
+      <h2 class="titulo-coluna">Navegação</h2>
+      <ul>
+        <li><a routerLink="/">Início</a></li>
+        <li><a routerLink="/cientistas">Cientistas</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="titulo-coluna">Projeto</h2>
+      <ul>
+        <li>IFMG Sabará</li>
+        <li>Sistemas de Informação · 2026</li>
+        <li>
+          <a
+            class="link-externo"
+            href="https://github.com/Portal-Mulheres-na-Ciencia"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+            <mat-icon aria-hidden="true">open_in_new</mat-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faixa-inferior">
+    <ul class="equipe" aria-label="Equipe">
+      @for (integrante of equipe; track integrante) {
+        <li>{{ integrante }}</li>
+      }
+    </ul>
+    <p>SNCT 2026 — Ciência Delas</p>
+  </div>
+</footer>
