@@ -11,9 +11,18 @@ html {
     (
       color: (
         primary: mat.$rose-palette,
-        tertiary: mat.$red-palette,
+        // Violeta em vez de vermelho: a terciária marca destaques (ex.: prêmios)
+        // e não pode ser confundida com a cor de erro.
+        tertiary: mat.$violet-palette,
       ),
-      typography: Roboto,
+      typography: (
+        // Serifada editorial para nomes e títulos; sem serifa para texto e interface.
+        brand-family: 'Fraunces, Georgia, serif',
+        plain-family: 'Inter, system-ui, sans-serif',
+        bold-weight: 600,
+        medium-weight: 500,
+        regular-weight: 400,
+      ),
       density: 0,
     )
   );
