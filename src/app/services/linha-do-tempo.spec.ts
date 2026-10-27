@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { firstValueFrom } from 'rxjs';
 import { LinhaDoTempoService } from './linha-do-tempo';
 
-describe('LinhaDoTempo', () => {
+describe('LinhaDoTempoService', () => {
   let service: LinhaDoTempoService;
 
   beforeEach(() => {
@@ -9,7 +10,8 @@ describe('LinhaDoTempo', () => {
     service = TestBed.inject(LinhaDoTempoService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('deve unir contribuições e prêmios em ordem cronológica', async () => {
+    const itens = await firstValueFrom(service.buscarDe(1));
+    expect(itens.map((i) => i.ano)).toEqual([1898, 1903, 1910, 1911]);
   });
 });
