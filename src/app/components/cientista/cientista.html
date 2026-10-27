@@ -1,8 +1,74 @@
-@if (cientista(); as dadosCientista) {
-  <app-hero [cientista]="dadosCientista"/>
+<div class="container">
+  <nav class="migalhas" aria-label="Você está em">
+    <ol>
+      <li><a routerLink="/">Início</a></li>
+      <li><a routerLink="/cientistas">Cientistas</a></li>
+      <li aria-current="page">{{ cientista()?.nome ?? 'Perfil' }}</li>
+    </ol>
+  </nav>
+</div>
+
+@if (cientista(); as dados) {
+  <app-hero [cientista]="dados" />
+
+  <div class="container corpo">
+    <div class="principal">
+      <section id="biografia" aria-labelledby="titulo-biografia">
+        <h2 class="titulo-secao" id="titulo-biografia">Biografia</h2>
+        <p class="biografia">{{ dados.biografia }}</p>
+      </section>
+
+      <section id="contribuicoes" aria-labelledby="titulo-contribuicoes">
+        <h2 class="titulo-secao" id="titulo-contribuicoes">
+          Contribuições <span class="total">{{ contribuicoes().length }}</span>
+        </h2>
+        @if (contribuicoes().length) {
+          <ol class="lista">
+            @for (contribuicao of contribuicoes(); track contribuicao.id) {
+              <li><app-contribuicao [contribuicao]="contribuicao" /></li>
+            }
+          </ol>
+        } @else {
+          <p class="vazio">Ainda não há contribuições cadastradas para esta cientista.</p>
+        }
+      </section>
+
+      <section id="premios" aria-labelledby="titulo-premios">
+        <h2 class="titulo-secao" id="titulo-premios">
+          Prêmios <span class="total">{{ premios().length }}</span>
+        </h2>
+        @if (premios().length) {
+          <ul class="lista premios">
+            @for (premio of premios(); track $index) {
+              <li><app-premiacao [premio]="premio" /></li>
+            }
+          </ul>
+        } @else {
+          <p class="vazio">Ainda não há prêmios cadastrados para esta cientista.</p>
+        }
+      </section>
+    </div>
+
+    <aside id="linha-do-tempo" class="lateral" aria-labelledby="titulo-linha">
+      <h2 class="titulo-secao" id="titulo-linha">Linha do tempo</h2>
+      <app-linha-do-tempo [itens]="linhaDoTempo()" />
+    </aside>
+  </div>
+} @else if (cientista() === null) {
+  <div class="container nao-encontrada">
+    <app-estado-vazio
+      icone="person_search"
+      titulo="Cientista não encontrada"
+      mensagem="O endereço pode estar incorreto ou o perfil pode ter sido removido."
+    >
+      <a matButton="filled" routerLink="/cientistas">Ver todas as cientistas</a>
+    </app-estado-vazio>
+  </div>
 } @else {
-  <div class="carregando">
-    <p>Carregando perfil da cientista...</p>
+  <div class="container carregando" role="status" aria-label="Carregando perfil">
+    <span class="skeleton" style="width: 7.5rem; height: 7.5rem; border-radius: 1.5rem"></span>
+    <span class="skeleton" style="width: min(30rem, 90%); height: 3rem"></span>
+    <span class="skeleton" style="width: min(20rem, 70%); height: 1.25rem"></span>
+    <span class="skeleton" style="width: 100%; height: 8rem; margin-top: 2rem"></span>
   </div>
 }
-<app-linha-do-tempo [itens]="linhaDoTempo()"/>

@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { PremioRecebido } from '../../../core/premio-recebido';
 
 @Component({
-  imports: [],
+  imports: [MatIconModule],
   selector: 'app-premiacao',
   styleUrl: './premiacao.css',
   templateUrl: './premiacao.html',
 })
-export class PremiacaoComponent {}
+export class PremiacaoComponent {
+  readonly premio = input.required<PremioRecebido>();
+}

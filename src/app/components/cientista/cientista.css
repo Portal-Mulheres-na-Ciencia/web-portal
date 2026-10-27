@@ -1,0 +1,110 @@
+.migalhas ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin: 0;
+  padding: var(--esp-4) 0 0;
+  list-style: none;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-medium);
+
+  li + li::before {
+    content: '/';
+    margin-right: var(--esp-2);
+    color: var(--mat-sys-outline);
+  }
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: var(--mat-sys-primary);
+    }
+  }
+
+  [aria-current] {
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+.corpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+  gap: var(--esp-7);
+  padding-block: var(--esp-7) var(--esp-8);
+}
+
+.principal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-7);
+}
+
+.biografia {
+  margin: 0;
+  max-width: var(--largura-leitura);
+  font: var(--mat-sys-body-large);
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.total {
+  margin-left: var(--esp-1);
+  padding: 0 var(--esp-2);
+  border-radius: var(--raio-total);
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-label-large);
+  vertical-align: middle;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.premios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+}
+
+.vazio {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-large);
+}
+
+.lateral {
+  align-self: start;
+  position: sticky;
+  top: calc(var(--altura-cabecalho) + var(--esp-5));
+  padding: var(--esp-5);
+  border: var(--borda);
+  border-radius: var(--raio-m);
+  background: var(--mat-sys-surface-container-lowest);
+}
+
+.nao-encontrada {
+  padding-block: var(--esp-7) var(--esp-8);
+}
+
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+  padding-block: var(--esp-7) var(--esp-8);
+}
+
+@media (max-width: 900px) {
+  .corpo {
+    grid-template-columns: 1fr;
+  }
+
+  .lateral {
+    position: static;
+  }
+}
