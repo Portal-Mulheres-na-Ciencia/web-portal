@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PremiacaoComponent } from './premiacao';
+import { CIENTISTAS } from '../../../services/dados-exemplo';
 
 describe('PremiacaoComponent', () => {
-  let component: PremiacaoComponent;
   let fixture: ComponentFixture<PremiacaoComponent>;
 
   beforeEach(async () => {
@@ -11,11 +11,14 @@ describe('PremiacaoComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(PremiacaoComponent);
-    component = fixture.componentInstance;
+    fixture.componentRef.setInput('premio', CIENTISTAS[0].premios[0]);
     await fixture.whenStable();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('deve exibir prêmio, ano e quem concedeu', () => {
+    const texto = (fixture.nativeElement as HTMLElement).textContent;
+    expect(texto).toContain('Prêmio Nobel de Física');
+    expect(texto).toContain('1903');
+    expect(texto).toContain('Academia Real das Ciências da Suécia');
   });
 });
