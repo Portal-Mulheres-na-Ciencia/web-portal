@@ -1,0 +1,15 @@
+<a class="card" [routerLink]="['/cientista', cientista().id]">
+  <div class="topo">
+    <app-monograma [nome]="cientista().nome" [id]="cientista().id" />
+    <div>
+      <h3 class="nome">{{ cientista().nome }}</h3>
+      <p class="meta">{{ periodo() }} · {{ cientista().nacionalidade }}</p>
+    </div>
+  </div>
+  <p class="resumo">{{ cientista().biografia }}</p>
+  <ul class="areas" aria-label="Áreas">
+    @for (area of cientista().areas; track area.id) {
+      <li>{{ area.nome }}</li>
+    }
+  </ul>
+</a>

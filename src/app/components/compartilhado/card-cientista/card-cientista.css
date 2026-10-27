@@ -1,0 +1,92 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+  height: 100%;
+  padding: var(--esp-5);
+
+  border: var(--borda);
+  border-radius: var(--raio-m);
+  background: var(--mat-sys-surface-container-lowest);
+  color: inherit;
+  text-decoration: none;
+
+  transition:
+    border-color var(--transicao),
+    background-color var(--transicao),
+    transform var(--transicao);
+
+  &:hover {
+    border-color: var(--mat-sys-primary);
+    background: var(--mat-sys-surface-container-low);
+  }
+
+  &:hover .nome {
+    color: var(--mat-sys-primary);
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+
+  &:focus-visible {
+    border-radius: var(--raio-m);
+  }
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+}
+
+.nome {
+  margin: 0;
+  font: var(--mat-sys-title-large);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  line-height: 1.2;
+  transition: color var(--transicao);
+}
+
+.meta {
+  margin: var(--esp-1) 0 0;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-small);
+}
+
+.resumo {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-medium);
+
+  /* Três linhas; max-height garante o corte mesmo dentro do flex do card. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height: 3lh;
+  flex-shrink: 0;
+}
+
+.areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 0.125rem var(--esp-3);
+    border-radius: var(--raio-total);
+    background: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
+    font: var(--mat-sys-label-medium);
+  }
+}

@@ -1,0 +1,45 @@
+:host {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: var(--raio-m);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+:host(.tom-primary) {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}
+
+:host(.tom-tertiary) {
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
+}
+
+:host(.tom-secondary) {
+  background: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+
+:host(.tamanho-p) {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1rem;
+  border-radius: var(--raio-p);
+}
+
+:host(.tamanho-m) {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.25rem;
+}
+
+:host(.tamanho-g) {
+  width: clamp(5rem, 14vw, 7.5rem);
+  height: clamp(5rem, 14vw, 7.5rem);
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  border-radius: 1.5rem;
+}
