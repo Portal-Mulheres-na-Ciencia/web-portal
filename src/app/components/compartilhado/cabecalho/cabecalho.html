@@ -1,0 +1,32 @@
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="cabecalho">
+  <div class="container barra">
+    <a class="marca" routerLink="/" aria-label="Portal Mulheres na Ciência — página inicial">
+      <svg class="simbolo" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="4" />
+        <ellipse cx="16" cy="16" rx="13" ry="5.5" />
+        <ellipse cx="16" cy="16" rx="13" ry="5.5" transform="rotate(60 16 16)" />
+        <ellipse cx="16" cy="16" rx="13" ry="5.5" transform="rotate(120 16 16)" />
+      </svg>
+      <span class="nome">Mulheres <span class="na">na</span> Ciência</span>
+    </a>
+
+    <nav aria-label="Principal">
+      <ul class="links">
+        @for (link of links; track link.rota) {
+          <li>
+            <a
+              [routerLink]="link.rota"
+              routerLinkActive="ativo"
+              [routerLinkActiveOptions]="{ exact: link.exato }"
+              ariaCurrentWhenActive="page"
+            >
+              {{ link.rotulo }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

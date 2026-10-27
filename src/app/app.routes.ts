@@ -1,29 +1,30 @@
 import { Routes } from '@angular/router';
-import { HomePage } from './components/home/home';
-import { CatalogoPage } from './components/catalogo/catalogo';
-import { CientistaPage } from './components/cientista/cientista';
-import { NaoEncontradoPage } from './components/nao-encontrado/nao-encontrado';
-import { PaletaCoresComponent } from './components/paleta-cores/paleta-cores';
-
+// Cada página vira um pacote separado, baixado só quando a rota é visitada.
 export const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    loadComponent: () => import('./components/home/home').then((m) => m.HomePage),
   },
   {
     path: 'cientistas',
-    component: CatalogoPage
+    title: 'Cientistas',
+    loadComponent: () => import('./components/catalogo/catalogo').then((m) => m.CatalogoPage),
   },
   {
     path: 'cientista/:id',
-    component: CientistaPage
+    title: 'Perfil da cientista',
+    loadComponent: () => import('./components/cientista/cientista').then((m) => m.CientistaPage),
   },
   {
     path: 'cores',
-    component: PaletaCoresComponent
+    title: 'Paleta de cores',
+    loadComponent: () =>
+      import('./components/paleta-cores/paleta-cores').then((m) => m.PaletaCoresComponent),
   },
   {
     path: '**',
-    component: NaoEncontradoPage
-  }
+    title: 'Página não encontrada',
+    loadComponent: () =>
+      import('./components/nao-encontrado/nao-encontrado').then((m) => m.NaoEncontradoPage),
+  },
 ];
