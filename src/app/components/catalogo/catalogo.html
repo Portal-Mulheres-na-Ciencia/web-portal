@@ -1,1 +1,94 @@
-<p>catalogo works!</p>
+<header class="cabecalho-pagina">
+  <div class="container">
+    <p class="sobretitulo">Catálogo</p>
+    <h1 class="titulo-pagina">Cientistas</h1>
+    <p class="texto-apoio">
+      Busque pelo nome ou pela instituição e filtre por área para encontrar trajetórias que
+      inspiram.
+    </p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="filtros">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="campo-busca">
+      <mat-label>Buscar por nome ou instituição</mat-label>
+      <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+      <input
+        matInput
+        #campo
+        type="search"
+        autocomplete="off"
+        [value]="busca() ?? ''"
+        (input)="alterarBusca(campo.value)"
+      />
+      @if (busca()) {
+        <button
+          matIconButton
+          matSuffix
+          type="button"
+          aria-label="Limpar busca"
+          (click)="alterarBusca(''); campo.focus()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+
+    <mat-chip-listbox
+      aria-label="Filtrar por área"
+      class="chips-area"
+      hideSingleSelectionIndicator
+      [value]="idArea() ?? 0"
+      (change)="alterarArea($event.value || null)"
+    >
+      <mat-chip-option [value]="0" [selectable]="idArea() !== null">Todas as áreas</mat-chip-option>
+      @for (area of areas(); track area.id) {
+        <mat-chip-option [value]="area.id">{{ area.nome }}</mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </div>
+
+  <div class="barra-resultado">
+    <p class="contagem" role="status" aria-live="polite">
+      @if (resultado()) {
+        {{ resumo() }}
+        @if (nomeArea()) {
+          <span>em {{ nomeArea() }}</span>
+        }
+      } @else {
+        Carregando cientistas…
+      }
+    </p>
+    @if (temFiltro()) {
+      <button matButton type="button" (click)="limparFiltros()">
+        <mat-icon aria-hidden="true">filter_alt_off</mat-icon>
+        Limpar filtros
+      </button>
+    }
+  </div>
+
+  @if (resultado(); as lista) {
+    @if (lista.length) {
+      <ul class="grade-cards lista">
+        @for (cientista of lista; track cientista.id) {
+          <li><app-card-cientista [cientista]="cientista" /></li>
+        }
+      </ul>
+    } @else {
+      <app-estado-vazio
+        class="lista"
+        titulo="Nenhuma cientista encontrada"
+        mensagem="Confira a grafia ou tente outra área. A busca ignora acentos e letras maiúsculas."
+      >
+        <button matButton="filled" type="button" (click)="limparFiltros()">Limpar filtros</button>
+      </app-estado-vazio>
+    }
+  } @else {
+    <ul class="grade-cards lista" aria-hidden="true">
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <li><span class="skeleton" style="height: 14rem"></span></li>
+      }
+    </ul>
+  }
+</div>
