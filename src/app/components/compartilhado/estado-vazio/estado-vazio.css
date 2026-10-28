@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-8) var(--esp-4);
+  text-align: center;
+  border: 1px dashed var(--mat-sys-outline-variant);
+  border-radius: var(--raio-m);
+}
+
+.icone {
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+  color: var(--mat-sys-primary);
+}
+
+.titulo {
+  margin: 0;
+  font: var(--mat-sys-title-large);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+}
+
+.mensagem {
+  margin: 0;
+  max-width: 42ch;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-large);
+}
+
+.acoes:not(:empty) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--esp-3);
+  margin-top: var(--esp-2);
+}
