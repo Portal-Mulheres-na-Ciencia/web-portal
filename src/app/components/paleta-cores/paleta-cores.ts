@@ -43,10 +43,10 @@ export class PaletaCoresComponent {
       ],
     },
     {
-      titulo: '3. Terciárias (Red)',
-      descricao: 'Cor de contraste e equilíbrio visual definida no tema como Red.',
+      titulo: '3. Terciárias (Violet)',
+      descricao: 'Cor de contraste e equilíbrio visual definida no tema como Violet. Usada para prêmios e destaques; não confundir com erro.',
       cores: [
-        { nome: 'Tertiary', variavel: '--mat-sys-tertiary', onVariavel: '--mat-sys-on-tertiary', descricao: 'Cor terciária (Red)' },
+        { nome: 'Tertiary', variavel: '--mat-sys-tertiary', onVariavel: '--mat-sys-on-tertiary', descricao: 'Cor terciária (Violet)' },
         { nome: 'On Tertiary', variavel: '--mat-sys-on-tertiary', onVariavel: '--mat-sys-tertiary', descricao: 'Texto sobre Tertiary' },
         { nome: 'Tertiary Container', variavel: '--mat-sys-tertiary-container', onVariavel: '--mat-sys-on-tertiary-container', descricao: 'Fundo suave terciário' },
         { nome: 'On Tertiary Container', variavel: '--mat-sys-on-tertiary-container', onVariavel: '--mat-sys-tertiary-container', descricao: 'Texto sobre Tertiary Container' },
@@ -87,6 +87,18 @@ export class PaletaCoresComponent {
         { nome: 'On Error', variavel: '--mat-sys-on-error', onVariavel: '--mat-sys-error', descricao: 'Texto sobre cor de erro' },
         { nome: 'Error Container', variavel: '--mat-sys-error-container', onVariavel: '--mat-sys-on-error-container', descricao: 'Fundo de mensagem de erro' },
         { nome: 'On Error Container', variavel: '--mat-sys-on-error-container', onVariavel: '--mat-sys-error-container', descricao: 'Texto sobre container de erro' },
+      ],
+    },
+    {
+      titulo: '7. Semânticas do projeto',
+      descricao: 'Definidas em styles.css, pois o Material 3 só tem a cor de erro.',
+      cores: [
+        { nome: 'Sucesso', variavel: '--cor-sucesso', onVariavel: '--cor-sucesso-fundo', descricao: 'Ações concluídas' },
+        { nome: 'Fundo de sucesso', variavel: '--cor-sucesso-fundo', onVariavel: '--cor-sucesso', descricao: 'Mensagens de sucesso' },
+        { nome: 'Alerta', variavel: '--cor-alerta', onVariavel: '--cor-alerta-fundo', descricao: 'Atenção necessária' },
+        { nome: 'Fundo de alerta', variavel: '--cor-alerta-fundo', onVariavel: '--cor-alerta', descricao: 'Mensagens de alerta' },
+        { nome: 'Informação', variavel: '--cor-info', onVariavel: '--cor-info-fundo', descricao: 'Avisos neutros' },
+        { nome: 'Fundo de informação', variavel: '--cor-info-fundo', onVariavel: '--cor-info', descricao: 'Mensagens informativas' },
       ],
     },
   ];

@@ -13,7 +13,9 @@
 .codigo {
   margin: 0;
   font: var(--mat-sys-display-large);
+  font-family: var(--fonte-texto);
   font-size: clamp(6rem, 25vw, 10rem);
+  letter-spacing: -0.04em;
   line-height: 1;
   font-weight: 700;
 
