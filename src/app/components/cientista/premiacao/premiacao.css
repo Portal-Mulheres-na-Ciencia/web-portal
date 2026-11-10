@@ -1,0 +1,27 @@
+.premio {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--esp-3);
+  height: 100%;
+  padding: var(--esp-4) var(--esp-5);
+  border-radius: var(--raio-m);
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
+}
+
+.icone {
+  flex-shrink: 0;
+  color: var(--mat-sys-tertiary);
+}
+
+.nome {
+  margin: 0;
+  font: var(--mat-sys-title-medium);
+  font-weight: 600;
+}
+
+.detalhe {
+  margin: var(--esp-1) 0 0;
+  font: var(--mat-sys-body-medium);
+  opacity: 0.85;
+}
