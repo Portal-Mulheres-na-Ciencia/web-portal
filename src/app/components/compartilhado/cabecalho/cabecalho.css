@@ -1,0 +1,124 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.cabecalho {
+  height: var(--altura-cabecalho);
+  border-bottom: var(--borda);
+  background: color-mix(in srgb, var(--mat-sys-surface) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-4);
+  height: 100%;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  color: var(--mat-sys-on-surface);
+  text-decoration: none;
+}
+
+.simbolo {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--mat-sys-primary);
+  stroke-width: 1.6;
+
+  circle {
+    fill: var(--mat-sys-primary);
+    stroke: none;
+  }
+}
+
+.nome {
+  font-family: var(--fonte-titulo);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.na {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.links {
+  display: flex;
+  gap: var(--esp-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    position: relative;
+    display: block;
+    padding: var(--esp-2) var(--esp-3);
+    border-radius: var(--raio-p);
+    color: var(--mat-sys-on-surface-variant);
+    font: var(--mat-sys-label-large);
+    text-decoration: none;
+    transition:
+      color var(--transicao),
+      background-color var(--transicao);
+
+    &:hover {
+      color: var(--mat-sys-on-surface);
+      background: var(--mat-sys-surface-container);
+    }
+
+    &.ativo {
+      color: var(--mat-sys-primary);
+    }
+
+    &.ativo::after {
+      content: '';
+      position: absolute;
+      left: var(--esp-3);
+      right: var(--esp-3);
+      bottom: calc((var(--altura-cabecalho) - 2.25rem) / -2);
+      height: 2px;
+      border-radius: 2px;
+      background: var(--mat-sys-primary);
+    }
+  }
+}
+
+.pular {
+  position: absolute;
+  top: var(--esp-2);
+  left: var(--esp-2);
+  z-index: 20;
+  padding: var(--esp-2) var(--esp-4);
+  border-radius: var(--raio-p);
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  font: var(--mat-sys-label-large);
+  transform: translateY(-200%);
+
+  &:focus-visible {
+    transform: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .nome {
+    font-size: 1rem;
+  }
+
+  .links a {
+    padding-inline: var(--esp-2);
+  }
+}
