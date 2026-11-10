@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,8 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { CientistaService } from '../../services/cientista';
 import { normalizarTexto } from '../../util/cientista';
+import { aoFalhar } from '../../util/carregamento';
 import { CardCientistaComponent } from '../compartilhado/card-cientista/card-cientista';
 import { EstadoVazioComponent } from '../compartilhado/estado-vazio/estado-vazio';
+import { ErroCarregamentoComponent } from '../compartilhado/erro-carregamento/erro-carregamento';
 
 /**
  * Catálogo com busca e filtro por área.
@@ -25,6 +27,7 @@ import { EstadoVazioComponent } from '../compartilhado/estado-vazio/estado-vazio
     MatInputModule,
     CardCientistaComponent,
     EstadoVazioComponent,
+    ErroCarregamentoComponent,
   ],
   selector: 'app-catalogo',
   styleUrl: './catalogo.css',
@@ -38,8 +41,12 @@ export class CatalogoPage {
   readonly busca = input<string>();
   readonly area = input<string>();
 
-  protected readonly cientistas = toSignal(this.cientistaService.listar());
-  protected readonly areas = toSignal(this.cientistaService.listarAreas(), { initialValue: [] });
+  /** Fica verdadeiro se a API não responder. */
+  protected readonly erro = signal(false);
+  protected readonly cientistas = toSignal(this.cientistaService.listar().pipe(aoFalhar(this.erro, [])));
+  protected readonly areas = toSignal(this.cientistaService.listarAreas().pipe(aoFalhar(this.erro, [])), {
+    initialValue: [],
+  });
 
   protected readonly idArea = computed(() => {
     const id = Number(this.area());

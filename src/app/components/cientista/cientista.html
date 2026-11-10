@@ -54,6 +54,10 @@
       <app-linha-do-tempo [itens]="linhaDoTempo()" />
     </aside>
   </div>
+} @else if (erro()) {
+  <div class="container nao-encontrada">
+    <app-erro-carregamento />
+  </div>
 } @else if (cientista() === null) {
   <div class="container nao-encontrada">
     <app-estado-vazio

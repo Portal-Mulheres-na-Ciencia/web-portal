@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { CatalogoPage } from './catalogo';
-import { cientistaServiceFalso } from '../../testes/cientista-service-falso';
+import { cientistaServiceFalso, cientistaServiceForaDoAr } from '../../testes/cientista-service-falso';
 import { CIENTISTAS } from '../../services/dados-exemplo';
 
 describe('CatalogoPage', () => {
@@ -50,5 +50,18 @@ describe('CatalogoPage', () => {
     await filtrar({ busca: 'nenhuma-cientista' });
     expect(cards().length).toBe(0);
     expect(elemento.querySelector('app-estado-vazio')?.textContent).toContain('Limpar filtros');
+  });
+});
+
+describe('CatalogoPage com a API fora do ar', () => {
+  it('deve avisar que não foi possível carregar', async () => {
+    await TestBed.configureTestingModule({
+      imports: [CatalogoPage],
+      providers: [provideRouter([]), cientistaServiceForaDoAr],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(CatalogoPage);
+    await fixture.whenStable();
+
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain('Não foi possível carregar os dados');
   });
 });

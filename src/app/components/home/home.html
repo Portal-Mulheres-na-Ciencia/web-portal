@@ -40,6 +40,8 @@
         <a matButton="outlined" [routerLink]="['/cientista', destaque.id]">
           Conhecer a trajetória
         </a>
+      } @else if (erro()) {
+        <p class="bio-do-dia">Não foi possível carregar o destaque de hoje.</p>
       } @else {
         <span class="skeleton" style="width: 6rem; height: 6rem"></span>
         <span class="skeleton" style="width: 70%; height: 2rem"></span>
@@ -49,6 +51,11 @@
   </div>
 </section>
 
+@if (erro()) {
+  <section class="container secao">
+    <app-erro-carregamento />
+  </section>
+} @else {
 <section class="container secao" aria-labelledby="titulo-areas">
   <h2 class="titulo-secao" id="titulo-areas">Explore por área</h2>
   <ul class="areas">
@@ -58,8 +65,8 @@
           <span class="area-nome">{{ area.nome }}</span>
           <span class="area-descricao">{{ area.descricao }}</span>
           <span class="area-total">
-            {{ area.cientistas.length }}
-            {{ area.cientistas.length === 1 ? 'cientista' : 'cientistas' }}
+            {{ totalDe(area) }}
+            {{ totalDe(area) === 1 ? 'cientista' : 'cientistas' }}
           </span>
         </a>
       </li>
@@ -89,6 +96,7 @@
     }
   </ul>
 </section>
+}
 
 <section class="sobre" aria-labelledby="titulo-sobre">
   <div class="container sobre-grade">
