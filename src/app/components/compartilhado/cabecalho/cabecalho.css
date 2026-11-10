@@ -113,9 +113,10 @@
   }
 }
 
-@media (max-width: 380px) {
+/* No celular, a marca mostra só o símbolo para os três links caberem; o link mantém o nome no aria-label. */
+@media (max-width: 480px) {
   .nome {
-    font-size: 1rem;
+    display: none;
   }
 
   .links a {

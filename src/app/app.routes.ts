@@ -16,6 +16,11 @@ export const routes: Routes = [
     loadComponent: () => import('./components/cientista/cientista').then((m) => m.CientistaPage),
   },
   {
+    path: 'sugerir',
+    title: 'Sugerir cientista',
+    loadComponent: () => import('./components/sugerir/sugerir').then((m) => m.SugerirPage),
+  },
+  {
     path: 'cores',
     title: 'Paleta de cores',
     loadComponent: () =>
