@@ -1,1 +1,102 @@
-<p>home works!</p>
+<section class="abertura">
+  <div class="container abertura-grade">
+    <div class="apresentacao">
+      <p class="sobretitulo">SNCT 2026 · Ciência Delas</p>
+      <h1 class="titulo-principal">
+        Conheça as mulheres que <em>transformaram</em> a ciência
+      </h1>
+      <p class="texto-apoio">
+        Trajetórias, descobertas e prêmios de cientistas brasileiras e de outros países nas áreas de
+        ciência, tecnologia, engenharia e matemática.
+      </p>
+
+      <form class="busca" role="search" (submit)="buscar($event, campo.value)">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="campo">
+          <mat-label>Buscar cientista pelo nome</mat-label>
+          <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+          <input matInput #campo type="search" name="busca" autocomplete="off" />
+        </mat-form-field>
+        <button matButton="filled" type="submit" class="botao-busca">Buscar</button>
+      </form>
+
+      <a class="link-todas" routerLink="/cientistas">
+        Ou veja todas as cientistas
+        <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+      </a>
+    </div>
+
+    <aside class="do-dia" aria-labelledby="titulo-do-dia">
+      <p class="rotulo-do-dia" id="titulo-do-dia">
+        <mat-icon aria-hidden="true">today</mat-icon>
+        Cientista do dia
+      </p>
+      @if (destaqueDoDia(); as destaque) {
+        <app-monograma [nome]="destaque.nome" [id]="destaque.id" tamanho="g" />
+        <h2 class="nome-do-dia">{{ destaque.nome }}</h2>
+        <p class="meta-do-dia">
+          {{ periodoDestaque() }} · {{ destaque.areas[0]?.nome }}
+        </p>
+        <p class="bio-do-dia">{{ destaque.biografia }}</p>
+        <a matButton="outlined" [routerLink]="['/cientista', destaque.id]">
+          Conhecer a trajetória
+        </a>
+      } @else {
+        <span class="skeleton" style="width: 6rem; height: 6rem"></span>
+        <span class="skeleton" style="width: 70%; height: 2rem"></span>
+        <span class="skeleton" style="width: 100%; height: 4.5rem"></span>
+      }
+    </aside>
+  </div>
+</section>
+
+<section class="container secao" aria-labelledby="titulo-areas">
+  <h2 class="titulo-secao" id="titulo-areas">Explore por área</h2>
+  <ul class="areas">
+    @for (area of areas(); track area.id) {
+      <li>
+        <a class="area" routerLink="/cientistas" [queryParams]="{ area: area.id }">
+          <span class="area-nome">{{ area.nome }}</span>
+          <span class="area-descricao">{{ area.descricao }}</span>
+          <span class="area-total">
+            {{ area.cientistas.length }}
+            {{ area.cientistas.length === 1 ? 'cientista' : 'cientistas' }}
+          </span>
+        </a>
+      </li>
+    } @empty {
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <li><span class="skeleton" style="height: 7.5rem"></span></li>
+      }
+    }
+  </ul>
+</section>
+
+<section class="container secao" aria-labelledby="titulo-brasileiras">
+  <div class="cabecalho-secao">
+    <h2 class="titulo-secao" id="titulo-brasileiras">Cientistas brasileiras</h2>
+    <a matButton routerLink="/cientistas">
+      Ver todas
+      <mat-icon iconPositionEnd aria-hidden="true">arrow_forward</mat-icon>
+    </a>
+  </div>
+  <ul class="grade-cards destaques">
+    @for (cientista of brasileiras(); track cientista.id) {
+      <li><app-card-cientista [cientista]="cientista" /></li>
+    } @empty {
+      @for (i of [1, 2, 3]; track i) {
+        <li><span class="skeleton" style="height: 14rem"></span></li>
+      }
+    }
+  </ul>
+</section>
+
+<section class="sobre" aria-labelledby="titulo-sobre">
+  <div class="container sobre-grade">
+    <h2 class="titulo-secao" id="titulo-sobre">Sobre o projeto</h2>
+    <p class="texto-apoio">
+      O Portal Mulheres na Ciência foi criado por estudantes de Sistemas de Informação do IFMG
+      Sabará para a Semana Nacional de Ciência e Tecnologia de 2026. O objetivo é dar visibilidade
+      a cientistas que muitas vezes ficam fora dos livros e inspirar novas gerações.
+    </p>
+  </div>
+</section>
