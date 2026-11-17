@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LinhaDoTempo } from './linha-do-tempo';
+import { LinhaDoTempoComponent } from './linha-do-tempo';
 
-describe('LinhaDoTempo', () => {
-  let component: LinhaDoTempo;
-  let fixture: ComponentFixture<LinhaDoTempo>;
+describe('LinhaDoTempoComponent', () => {
+  let component: LinhaDoTempoComponent;
+  let fixture: ComponentFixture<LinhaDoTempoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LinhaDoTempo],
+      imports: [LinhaDoTempoComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LinhaDoTempo);
+    fixture = TestBed.createComponent(LinhaDoTempoComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('itens', []);
     await fixture.whenStable();
   });
 

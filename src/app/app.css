@@ -6,4 +6,8 @@
 
 .conteudo {
   flex: 1;
+
+  &:focus {
+    outline: none;
+  }
 }
