@@ -1,0 +1,48 @@
+<div class="container pagina-admin">
+  <header class="cabecalho-admin">
+    <div>
+      <p class="sobretitulo">Área da equipe</p>
+      <h1 class="titulo-pagina">Cientistas</h1>
+    </div>
+    <a matButton="filled" routerLink="/admin/cientistas/nova">
+      <mat-icon aria-hidden="true">add</mat-icon>Cadastrar cientista
+    </a>
+  </header>
+
+  @if (erro()) {
+    <app-erro-carregamento />
+  } @else if (cientistas() === null) {
+    <p class="texto-apoio" role="status">Carregando cientistas…</p>
+  } @else {
+    <mat-form-field appearance="outline" class="busca" subscriptSizing="dynamic">
+      <mat-label>Buscar pelo nome</mat-label>
+      <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+      <input matInput [value]="busca()" (input)="busca.set($any($event.target).value)" />
+    </mat-form-field>
+
+    <p class="contador" role="status">{{ filtradas().length }} de {{ cientistas()!.length }} cientistas</p>
+
+    @if (filtradas().length === 0) {
+      <app-estado-vazio titulo="Nenhuma cientista encontrada" mensagem="Confira a grafia do nome ou cadastre uma nova cientista." />
+    } @else {
+      <ul class="lista-admin">
+        @for (cientista of filtradas(); track cientista.id) {
+          <li>
+            <div class="dados">
+              <a class="nome" [routerLink]="['/cientista', cientista.id]">{{ cientista.nome }}</a>
+              <span class="detalhe">{{ detalhe(cientista) }}</span>
+            </div>
+            <div class="botoes">
+              <a matButton="outlined" [routerLink]="['/admin/cientistas', cientista.id, 'editar']">
+                <mat-icon aria-hidden="true">edit</mat-icon>Editar
+              </a>
+              <button matButton type="button" class="perigo" (click)="excluir(cientista)">
+                <mat-icon aria-hidden="true">delete</mat-icon>Excluir
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  }
+</div>

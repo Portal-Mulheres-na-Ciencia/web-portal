@@ -1,0 +1,23 @@
+.busca {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.contador {
+  margin: var(--esp-3) 0;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-medium);
+}
+
+.nome {
+  color: var(--mat-sys-on-surface);
+  font-family: var(--fonte-titulo);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--mat-sys-primary);
+    text-decoration: underline;
+  }
+}

@@ -21,6 +21,10 @@ export const routes: Routes = [
     loadComponent: () => import('./components/sugerir/sugerir').then((m) => m.SugerirPage),
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./components/admin/admin.routes').then((m) => m.ROTAS_ADMIN),
+  },
+  {
     path: 'cores',
     title: 'Paleta de cores',
     loadComponent: () =>

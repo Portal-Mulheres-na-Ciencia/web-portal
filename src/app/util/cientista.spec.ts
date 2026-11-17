@@ -1,4 +1,4 @@
-import { cientistaDoDia, normalizarTexto, periodoDeVida } from './cientista';
+import { cientistaDoDia, juntarInfo, normalizarTexto, periodoDeVida } from './cientista';
 import { CIENTISTAS } from '../services/dados-exemplo';
 
 describe('utilitários de cientista', () => {
@@ -6,6 +6,17 @@ describe('utilitários de cientista', () => {
     expect(periodoDeVida(CIENTISTAS[0])).toBe('1867–1934');
     const viva = CIENTISTAS.find((c) => !c.dataFalecimento)!;
     expect(periodoDeVida(viva)).toMatch(/^Nascida em \d{4}$/);
+  });
+
+  it('periodoDeVida funciona sem data de nascimento', () => {
+    const semData = { ...CIENTISTAS[0], dataNascimento: undefined };
+    expect(periodoDeVida(semData)).toBe('Falecida em 1934');
+    expect(periodoDeVida({ ...semData, dataFalecimento: undefined })).toBe('');
+  });
+
+  it('juntarInfo ignora as partes vazias', () => {
+    expect(juntarInfo('', 'Brasileira')).toBe('Brasileira');
+    expect(juntarInfo('1867–1934', 'Polonesa')).toBe('1867–1934 · Polonesa');
   });
 
   it('normalizarTexto ignora acentos e maiúsculas', () => {
