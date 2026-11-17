@@ -68,7 +68,9 @@
     }
   </div>
 
-  @if (resultado(); as lista) {
+  @if (erro()) {
+    <app-erro-carregamento class="lista" />
+  } @else if (resultado(); as lista) {
     @if (lista.length) {
       <ul class="grade-cards lista">
         @for (cientista of lista; track cientista.id) {

@@ -3,9 +3,8 @@ import { Cientista } from '../core/cientista';
 import { Premio } from '../core/premio';
 
 /*
- * Dados de exemplo usados enquanto não existe back-end.
- * Os fatos foram escolhidos por serem amplamente documentados; ao integrar com a API,
- * este arquivo deve deixar de ser usado pelo CientistaService.
+ * Dados de exemplo usados nos testes automáticos (o site busca os dados reais na API).
+ * São os mesmos do script dados.sql do back-end, com os mesmos ids.
  * Quando só o ano de nascimento é conhecido, a data usa 1º de janeiro: a interface exibe apenas o ano.
  */
 

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { CientistaPage } from './cientista';
-import { cientistaServiceFalso } from '../../testes/cientista-service-falso';
+import { cientistaServiceFalso, cientistaServiceForaDoAr } from '../../testes/cientista-service-falso';
 
 describe('CientistaPage', () => {
   let fixture: ComponentFixture<CientistaPage>;
@@ -34,5 +34,21 @@ describe('CientistaPage', () => {
     expect(elemento.querySelector('app-estado-vazio')?.textContent).toContain(
       'Cientista não encontrada',
     );
+  });
+});
+
+describe('CientistaPage com a API fora do ar', () => {
+  it('deve avisar o erro em vez de dizer que a cientista não existe', async () => {
+    await TestBed.configureTestingModule({
+      imports: [CientistaPage],
+      providers: [provideRouter([]), cientistaServiceForaDoAr],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(CientistaPage);
+    fixture.componentRef.setInput('id', 1);
+    await fixture.whenStable();
+
+    const texto = (fixture.nativeElement as HTMLElement).textContent;
+    expect(texto).toContain('Não foi possível carregar os dados');
+    expect(texto).not.toContain('Cientista não encontrada');
   });
 });

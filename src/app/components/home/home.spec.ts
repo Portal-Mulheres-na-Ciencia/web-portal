@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { HomePage } from './home';
-import { cientistaServiceFalso } from '../../testes/cientista-service-falso';
+import { cientistaServiceFalso, cientistaServiceForaDoAr } from '../../testes/cientista-service-falso';
 
 describe('HomePage', () => {
   let fixture: ComponentFixture<HomePage>;
@@ -32,5 +32,20 @@ describe('HomePage', () => {
     const links = elemento.querySelectorAll('.area');
     expect(links.length).toBe(6);
     expect(links[0].getAttribute('href')).toBe('/cientistas?area=1');
+  });
+});
+
+describe('HomePage com a API fora do ar', () => {
+  it('deve mostrar o aviso no lugar das seções', async () => {
+    await TestBed.configureTestingModule({
+      imports: [HomePage],
+      providers: [provideRouter([]), cientistaServiceForaDoAr],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(HomePage);
+    await fixture.whenStable();
+
+    const elemento = fixture.nativeElement as HTMLElement;
+    expect(elemento.textContent).toContain('Não foi possível carregar os dados');
+    expect(elemento.querySelectorAll('.area').length).toBe(0);
   });
 });
