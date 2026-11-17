@@ -14,6 +14,7 @@ O Portal Mulheres na Ciência reúne informações sobre cientistas brasileiras 
 - **Linha do Tempo:** marcos de cada cientista em ordem cronológica.
 - **Cientista do Dia:** destaque diário de uma cientista na página inicial.
 - **Sugerir cientista:** formulário que grava a sugestão no banco pela API.
+- **Área da equipe (`/admin`):** login, cadastro, edição e exclusão de cientistas (com áreas, contribuições e prêmios) e avaliação das sugestões.
 
 Os dados vêm da API do back-end ([api-portal](https://github.com/Portal-Mulheres-na-Ciencia/api-portal)).
 O arquivo `src/app/services/dados-exemplo.ts` é usado só nos testes automáticos.
@@ -44,7 +45,7 @@ Acesse `http://localhost:4200`. Detalhes em `docs/AMBIENTE.md` do `api-portal`.
 ### Desenvolvimento (só o site)
 
 ```bash
-git clone https://github.com/Portal-Mulheres-na-Ciencia/web-portal.git
+git clone -b develop https://github.com/Portal-Mulheres-na-Ciencia/web-portal.git
 cd web-portal
 npm install
 npm start
@@ -53,6 +54,22 @@ npm start
 Acesse `http://localhost:4200`. O `npm start` encaminha as chamadas `/api/...` para a API em
 `http://localhost:8080` (arquivo `proxy.conf.json`), então a API precisa estar rodando
 (veja o README do `api-portal`). Sem a API, as páginas mostram o aviso "Não foi possível carregar os dados".
+
+### Área da equipe
+
+Endereço: `http://localhost:4200/admin`. No ambiente de teste com Docker, a conta é
+`equipe@portal.local` com a senha `ciencia2026` (valem só para o ambiente local; veja `docs/AMBIENTE.md` do `api-portal`).
+
+- O login cria uma sessão guardada num cookie que o JavaScript não lê.
+- As ações que alteram dados levam o token de segurança (CSRF) que o `HttpClient` do Angular envia sozinho.
+- Se a sessão expirar, o site volta para a tela de login e, depois de entrar, para a página em que a pessoa estava.
+
+| Página | O que faz |
+|---|---|
+| `/admin` | Painel com o total de cientistas e de sugestões pendentes |
+| `/admin/cientistas` | Lista com busca, editar e excluir (com confirmação) |
+| `/admin/cientistas/nova` | Cadastro com áreas, contribuições e prêmios |
+| `/admin/sugestoes` | Sugestões do site: cadastrar a cientista sugerida ou recusar |
 
 ### Comandos úteis
 
@@ -119,6 +136,7 @@ src/app/
 │   ├── catalogo/        catálogo com busca e filtros
 │   ├── cientista/       perfil (hero, contribuição, premiação, linha do tempo)
 │   ├── sugerir/         formulário "Sugerir cientista"
+│   ├── admin/           área da equipe (login, cientistas, sugestões)
 │   ├── nao-encontrado/  página 404
 │   ├── paleta-cores/    referência das cores do tema (/cores)
 │   └── rodape/

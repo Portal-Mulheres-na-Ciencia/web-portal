@@ -7,7 +7,8 @@ export interface Cientista {
   nome: string;
   biografia: string;
   instituicao: string;
-  dataNascimento: Date;
+  /** Pode faltar quando a data não é conhecida. */
+  dataNascimento?: Date;
   dataFalecimento?: Date;
   nacionalidade: string;
 

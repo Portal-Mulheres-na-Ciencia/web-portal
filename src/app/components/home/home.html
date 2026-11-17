@@ -34,7 +34,7 @@
         <app-monograma [nome]="destaque.nome" [id]="destaque.id" tamanho="g" />
         <h2 class="nome-do-dia">{{ destaque.nome }}</h2>
         <p class="meta-do-dia">
-          {{ periodoDestaque() }} · {{ destaque.areas[0]?.nome }}
+          {{ juntar(periodoDestaque(), destaque.areas[0]?.nome) }}
         </p>
         <p class="bio-do-dia">{{ destaque.biografia }}</p>
         <a matButton="outlined" [routerLink]="['/cientista', destaque.id]">

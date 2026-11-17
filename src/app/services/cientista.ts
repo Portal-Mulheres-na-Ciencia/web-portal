@@ -6,14 +6,14 @@ import { Cientista } from '../core/cientista';
 import { API_URL } from './api';
 
 /** Formatos devolvidos pela API (veja docs/API.md no repositório api-portal). */
-interface AreaApi {
+export interface AreaApi {
   id: number;
   nome: string;
   descricao?: string;
   totalCientistas?: number;
 }
 
-interface CientistaResumoApi {
+export interface CientistaResumoApi {
   id: number;
   nome: string;
   resumoBiografia: string;
@@ -24,7 +24,7 @@ interface CientistaResumoApi {
   areasAtuacao: AreaApi[];
 }
 
-interface CientistaDetalheApi extends Omit<CientistaResumoApi, 'resumoBiografia'> {
+export interface CientistaDetalheApi extends Omit<CientistaResumoApi, 'resumoBiografia'> {
   biografia: string;
   contribuicoes: { id: number; ano: number; titulo: string; descricao: string; linkReferencia: string | null }[];
   premios: { id: number; nome: string; concedente: string; ano: number }[];
@@ -53,7 +53,7 @@ function paraCientista(dados: CientistaResumoApi | CientistaDetalheApi): Cientis
     nome: dados.nome,
     biografia: 'biografia' in dados ? dados.biografia : dados.resumoBiografia,
     instituicao: dados.instituicao,
-    dataNascimento: lerData(dados.dataNascimento) as Date,
+    dataNascimento: lerData(dados.dataNascimento),
     dataFalecimento: lerData(dados.dataFalecimento),
     nacionalidade: dados.nacionalidade,
     areas: dados.areasAtuacao.map(paraArea),
@@ -103,7 +103,7 @@ export class CientistaService {
     return this.filtrar((c) => c.instituicao === instituicao);
   }
   listarPorEpoca(dataInicio: Date, dataFim: Date): Observable<Cientista[]> {
-    return this.filtrar((c) => c.dataNascimento >= dataInicio && c.dataNascimento <= dataFim);
+    return this.filtrar((c) => !!c.dataNascimento && c.dataNascimento >= dataInicio && c.dataNascimento <= dataFim);
   }
   listarPorNacionalidade(nacionalidade: string): Observable<Cientista[]> {
     return this.filtrar((c) => c.nacionalidade === nacionalidade);

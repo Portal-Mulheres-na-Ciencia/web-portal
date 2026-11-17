@@ -26,8 +26,8 @@ describe('RodapeComponent', () => {
     expect(integrantes.length).toBe(6);
   });
 
-  it('deve ter links de navegação para início e catálogo', () => {
+  it('deve ter links de navegação para as páginas e a área da equipe', () => {
     const links = Array.from(elemento.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
-    expect(links).toEqual(['/', '/cientistas', '/sugerir']);
+    expect(links).toEqual(['/', '/cientistas', '/sugerir', '/admin']);
   });
 });

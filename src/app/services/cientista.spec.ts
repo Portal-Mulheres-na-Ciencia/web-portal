@@ -35,7 +35,7 @@ describe('CientistaService', () => {
 
     const [curie] = await resposta;
     expect(curie.biografia).toBe('Pioneira da radioatividade…');
-    expect(curie.dataNascimento.getFullYear()).toBe(1867);
+    expect(curie.dataNascimento?.getFullYear()).toBe(1867);
     expect(curie.dataFalecimento?.getDate()).toBe(4);
     expect(curie.areas[0].nome).toBe('Física');
   });

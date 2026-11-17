@@ -1,0 +1,219 @@
+<div class="container pagina-admin">
+  <header class="cabecalho-admin">
+    <div>
+      <p class="sobretitulo">
+        <a routerLink="/admin/cientistas">Cientistas</a> / {{ edicao() ? 'Editar' : 'Cadastrar' }}
+      </p>
+      <h1 class="titulo-pagina">{{ edicao() ? 'Editar cientista' : 'Cadastrar cientista' }}</h1>
+    </div>
+  </header>
+
+  @if (erroCarga()) {
+    <app-erro-carregamento />
+  } @else if (carregando()) {
+    <p class="texto-apoio" role="status">Carregando…</p>
+  } @else {
+    @if (sugestaoOrigem(); as sugestao) {
+      <aside class="origem" aria-label="Sugestão de origem">
+        <mat-icon aria-hidden="true">lightbulb</mat-icon>
+        <div>
+          <p><b>Cadastro a partir da sugestão nº {{ sugestao.id }}</b>, enviada por {{ sugestao.nomeSugestor }} em
+            {{ formatarData(sugestao.dataSugestao) }}. Ao salvar, a sugestão fica como aprovada.</p>
+          <p class="justificativa">"{{ sugestao.justificativa }}"</p>
+        </div>
+      </aside>
+    }
+
+    <form class="formulario-admin" [formGroup]="formulario" (ngSubmit)="salvar()" novalidate>
+      @if (erroGeral()) {
+        <p class="erro-geral" role="alert"><mat-icon aria-hidden="true">error</mat-icon>{{ erroGeral() }}</p>
+      }
+
+      <fieldset>
+        <legend>Dados da cientista</legend>
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" maxlength="150" />
+          @if (erro('nome')) {
+            <mat-error>{{ erro('nome') }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Biografia</mat-label>
+          <textarea matInput formControlName="biografia" rows="6" maxlength="5000"></textarea>
+          <mat-hint>Texto mostrado no perfil. Os primeiros 160 caracteres aparecem no catálogo.</mat-hint>
+          @if (erro('biografia')) {
+            <mat-error>{{ erro('biografia') }}</mat-error>
+          }
+        </mat-form-field>
+        <div class="lado-a-lado">
+          <mat-form-field appearance="outline">
+            <mat-label>Instituição principal</mat-label>
+            <input matInput formControlName="instituicao" maxlength="150" />
+            @if (erro('instituicao')) {
+              <mat-error>{{ erro('instituicao') }}</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Nacionalidade</mat-label>
+            <input matInput formControlName="nacionalidade" maxlength="45" />
+            @if (erro('nacionalidade')) {
+              <mat-error>{{ erro('nacionalidade') }}</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Data de nascimento</mat-label>
+            <input matInput type="date" formControlName="dataNascimento" />
+            @if (erro('dataNascimento')) {
+              <mat-error>{{ erro('dataNascimento') }}</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Data de falecimento</mat-label>
+            <input matInput type="date" formControlName="dataFalecimento" />
+            <mat-hint>Deixe em branco se estiver viva.</mat-hint>
+            @if (erro('dataFalecimento')) {
+              <mat-error>{{ erro('dataFalecimento') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Áreas de atuação</legend>
+        <div class="areas" role="group" aria-label="Áreas de atuação">
+          @for (area of areas(); track area.id) {
+            <mat-checkbox [checked]="areaMarcada(area.id)" (change)="alternarArea(area.id, $event.checked)">
+              {{ area.nome }}
+            </mat-checkbox>
+          }
+        </div>
+        @if (erro('idsAreas')) {
+          <p class="erro-campo" role="alert">{{ erro('idsAreas') }}</p>
+        }
+      </fieldset>
+
+      <fieldset formArrayName="contribuicoes">
+        <legend>Contribuições</legend>
+        @for (grupo of contribuicoes.controls; track grupo; let i = $index) {
+          <div class="item" [formGroupName]="i">
+            <div class="item-topo">
+              <h3>Contribuição {{ i + 1 }}</h3>
+              <button matButton type="button" class="perigo" (click)="contribuicoes.removeAt(i)">
+                <mat-icon aria-hidden="true">delete</mat-icon>Remover
+              </button>
+            </div>
+            <div class="lado-a-lado">
+              <mat-form-field appearance="outline" class="largo">
+                <mat-label>Título</mat-label>
+                <input matInput formControlName="titulo" maxlength="200" />
+                @if (erro('contribuicoes.' + i + '.titulo')) {
+                  <mat-error>{{ erro('contribuicoes.' + i + '.titulo') }}</mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Ano</mat-label>
+                <input matInput type="number" formControlName="ano" min="1000" max="2100" />
+                @if (erro('contribuicoes.' + i + '.ano')) {
+                  <mat-error>{{ erro('contribuicoes.' + i + '.ano') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Descrição</mat-label>
+              <textarea matInput formControlName="descricao" rows="2" maxlength="2000"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Link da fonte (opcional)</mat-label>
+              <input matInput type="url" formControlName="linkReferencia" placeholder="https://" />
+              @if (erro('contribuicoes.' + i + '.linkReferencia')) {
+                <mat-error>{{ erro('contribuicoes.' + i + '.linkReferencia') }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        } @empty {
+          <p class="texto-apoio vazio">Nenhuma contribuição ainda.</p>
+        }
+        <button matButton="outlined" type="button" (click)="adicionarContribuicao()">
+          <mat-icon aria-hidden="true">add</mat-icon>Adicionar contribuição
+        </button>
+      </fieldset>
+
+      <fieldset formArrayName="premios">
+        <legend>Prêmios</legend>
+        @for (grupo of premiosRecebidos.controls; track grupo; let i = $index) {
+          <div class="item premio" [formGroupName]="i">
+            <mat-form-field appearance="outline" class="largo">
+              <mat-label>Prêmio</mat-label>
+              <mat-select formControlName="idPremio">
+                @for (premio of premios(); track premio.id) {
+                  <mat-option [value]="premio.id">{{ premio.nome }}</mat-option>
+                }
+              </mat-select>
+              @if (erro('premios.' + i + '.idPremio')) {
+                <mat-error>{{ erro('premios.' + i + '.idPremio') }}</mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="ano">
+              <mat-label>Ano</mat-label>
+              <input matInput type="number" formControlName="ano" min="1000" max="2100" />
+              @if (erro('premios.' + i + '.ano')) {
+                <mat-error>{{ erro('premios.' + i + '.ano') }}</mat-error>
+              }
+            </mat-form-field>
+            <button
+              matIconButton
+              type="button"
+              class="perigo"
+              (click)="premiosRecebidos.removeAt(i)"
+              [attr.aria-label]="'Remover prêmio ' + (i + 1)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        } @empty {
+          <p class="texto-apoio vazio">Nenhum prêmio ainda.</p>
+        }
+
+        <div class="acoes-linha">
+          <button matButton="outlined" type="button" (click)="adicionarPremio()">
+            <mat-icon aria-hidden="true">add</mat-icon>Adicionar prêmio
+          </button>
+          <button matButton type="button" (click)="mostrarNovoPremio.set(!mostrarNovoPremio())" [attr.aria-expanded]="mostrarNovoPremio()">
+            O prêmio não está na lista?
+          </button>
+        </div>
+
+        @if (mostrarNovoPremio()) {
+          <div class="novo-premio" [formGroup]="novoPremio">
+            <h3>Novo prêmio</h3>
+            @if (erroNovoPremio()) {
+              <p class="erro-campo" role="alert">{{ erroNovoPremio() }}</p>
+            }
+            <div class="lado-a-lado">
+              <mat-form-field appearance="outline">
+                <mat-label>Nome do prêmio</mat-label>
+                <input matInput formControlName="nome" maxlength="150" />
+                @if (erroDoNovoPremio()) {
+                  <mat-error>{{ erroDoNovoPremio() }}</mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Quem concede (opcional)</mat-label>
+                <input matInput formControlName="concedente" maxlength="45" />
+              </mat-form-field>
+            </div>
+            <button matButton="tonal" type="button" (click)="criarPremio()">Criar e adicionar</button>
+          </div>
+        }
+      </fieldset>
+
+      <div class="acoes">
+        <button matButton="filled" type="submit" [disabled]="salvando()">
+          <mat-icon aria-hidden="true">save</mat-icon>{{ salvando() ? 'Salvando…' : 'Salvar' }}
+        </button>
+        <a matButton="outlined" routerLink="/admin/cientistas">Cancelar</a>
+      </div>
+    </form>
+  }
+</div>

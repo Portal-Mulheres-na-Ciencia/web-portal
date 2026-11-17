@@ -6,18 +6,24 @@
       <h1 class="titulo">{{ cientista().nome }}</h1>
 
       <dl class="meta">
-        <div>
-          <dt><mat-icon aria-hidden="true">event</mat-icon><span class="sr-only">Período</span></dt>
-          <dd>{{ periodo() }}</dd>
-        </div>
-        <div>
-          <dt><mat-icon aria-hidden="true">public</mat-icon><span class="sr-only">Nacionalidade</span></dt>
-          <dd>{{ cientista().nacionalidade }}</dd>
-        </div>
-        <div>
-          <dt><mat-icon aria-hidden="true">account_balance</mat-icon><span class="sr-only">Instituição</span></dt>
-          <dd>{{ cientista().instituicao }}</dd>
-        </div>
+        @if (periodo()) {
+          <div>
+            <dt><mat-icon aria-hidden="true">event</mat-icon><span class="sr-only">Período</span></dt>
+            <dd>{{ periodo() }}</dd>
+          </div>
+        }
+        @if (cientista().nacionalidade) {
+          <div>
+            <dt><mat-icon aria-hidden="true">public</mat-icon><span class="sr-only">Nacionalidade</span></dt>
+            <dd>{{ cientista().nacionalidade }}</dd>
+          </div>
+        }
+        @if (cientista().instituicao) {
+          <div>
+            <dt><mat-icon aria-hidden="true">account_balance</mat-icon><span class="sr-only">Instituição</span></dt>
+            <dd>{{ cientista().instituicao }}</dd>
+          </div>
+        }
       </dl>
 
       <ul class="areas" aria-label="Áreas de atuação">
