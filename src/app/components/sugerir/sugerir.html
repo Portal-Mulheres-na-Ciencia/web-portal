@@ -1,0 +1,85 @@
+<header class="cabecalho-pagina">
+  <div class="container">
+    <p class="sobretitulo">Participe</p>
+    <h1 class="titulo-pagina">Sugerir uma cientista</h1>
+    <p class="texto-apoio">
+      Conhece uma cientista que deveria estar no portal? Conte para a gente. A equipe avalia cada
+      sugestão e responde pelo e-mail informado.
+    </p>
+  </div>
+</header>
+
+<div class="container corpo">
+  @if (enviada(); as resposta) {
+    <section class="sucesso" aria-live="polite">
+      <mat-icon class="icone-sucesso" aria-hidden="true">check_circle</mat-icon>
+      <h2 class="titulo-secao" tabindex="-1" #tituloSucesso>Sugestão enviada!</h2>
+      <p>{{ resposta.mensagem }}</p>
+      <p class="detalhe">
+        Sugestão nº {{ resposta.id }}: <b>{{ resposta.nomeCientista }}</b> · situação: aguardando avaliação
+      </p>
+      <div class="acoes">
+        <button matButton="filled" type="button" (click)="novaSugestao()">Sugerir outra cientista</button>
+        <a matButton="outlined" routerLink="/cientistas">Ver as cientistas</a>
+      </div>
+    </section>
+  } @else {
+    <form class="formulario" [formGroup]="formulario" (ngSubmit)="enviar()" novalidate>
+      @if (erroGeral()) {
+        <p class="erro-geral" role="alert">
+          <mat-icon aria-hidden="true">error</mat-icon>{{ erroGeral() }}
+        </p>
+      }
+
+      <fieldset>
+        <legend>Sobre a cientista</legend>
+        <mat-form-field appearance="outline">
+          <mat-label>Nome da cientista</mat-label>
+          <input matInput formControlName="nomeCientista" autocomplete="off" maxlength="150" />
+          @if (erroDe('nomeCientista')) {
+            <mat-error>{{ erroDe('nomeCientista') }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Justificativa</mat-label>
+          <textarea matInput formControlName="justificativa" rows="5" maxlength="2000"></textarea>
+          <mat-hint>Por que ela deveria estar no portal? Conte as descobertas ou a trajetória (mínimo de 20 caracteres).</mat-hint>
+          @if (erroDe('justificativa')) {
+            <mat-error>{{ erroDe('justificativa') }}</mat-error>
+          }
+        </mat-form-field>
+      </fieldset>
+
+      <fieldset>
+        <legend>Seus dados</legend>
+        <div class="lado-a-lado">
+          <mat-form-field appearance="outline">
+            <mat-label>Seu nome</mat-label>
+            <input matInput formControlName="nomeSugestor" autocomplete="name" maxlength="100" />
+            @if (erroDe('nomeSugestor')) {
+              <mat-error>{{ erroDe('nomeSugestor') }}</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Seu e-mail</mat-label>
+            <input matInput type="email" formControlName="emailSugestor" autocomplete="email" maxlength="150" />
+            @if (erroDe('emailSugestor')) {
+              <mat-error>{{ erroDe('emailSugestor') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <mat-checkbox formControlName="consentimento">
+          Concordo que meu nome e e-mail sejam usados apenas para responder a esta sugestão.
+        </mat-checkbox>
+        @if (erroDe('consentimento')) {
+          <p class="erro-campo" role="alert">{{ erroDe('consentimento') }}</p>
+        }
+      </fieldset>
+
+      <button matButton="filled" type="submit" class="enviar" [disabled]="enviando()">
+        <mat-icon aria-hidden="true">send</mat-icon>
+        {{ enviando() ? 'Enviando…' : 'Enviar sugestão' }}
+      </button>
+    </form>
+  }
+</div>

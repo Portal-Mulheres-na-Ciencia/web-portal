@@ -1,0 +1,92 @@
+.cabecalho-pagina {
+  padding-block: clamp(var(--esp-6), 5vw, var(--esp-7)) var(--esp-5);
+
+  .titulo-pagina {
+    margin-bottom: var(--esp-2);
+  }
+}
+
+.corpo {
+  padding-bottom: var(--esp-8);
+}
+
+.formulario,
+.sucesso {
+  max-width: 44rem;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  margin: 0 0 var(--esp-5);
+  padding: var(--esp-5);
+  border: var(--borda);
+  border-radius: var(--raio-m);
+}
+
+legend {
+  padding: 0 var(--esp-2);
+  font: var(--mat-sys-title-medium);
+  font-weight: 600;
+}
+
+.lado-a-lado {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 0 var(--esp-4);
+}
+
+.erro-campo {
+  margin: 0;
+  color: var(--mat-sys-error);
+  font: var(--mat-sys-body-small);
+}
+
+.erro-geral {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  margin: 0 0 var(--esp-4);
+  padding: var(--esp-3) var(--esp-4);
+  border-radius: var(--raio-p);
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}
+
+.enviar {
+  min-width: 12rem;
+}
+
+.sucesso {
+  padding: var(--esp-6);
+  border-radius: var(--raio-m);
+  background: var(--cor-sucesso-fundo);
+  color: var(--cor-sucesso);
+
+  p {
+    margin: 0 0 var(--esp-2);
+    font: var(--mat-sys-body-large);
+  }
+
+  .titulo-secao {
+    color: inherit;
+  }
+}
+
+.icone-sucesso {
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+}
+
+.detalhe {
+  font: var(--mat-sys-body-medium) !important;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+  margin-top: var(--esp-4);
+}

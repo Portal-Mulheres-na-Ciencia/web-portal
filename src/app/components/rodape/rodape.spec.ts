@@ -28,6 +28,6 @@ describe('RodapeComponent', () => {
 
   it('deve ter links de navegação para início e catálogo', () => {
     const links = Array.from(elemento.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
-    expect(links).toEqual(['/', '/cientistas']);
+    expect(links).toEqual(['/', '/cientistas', '/sugerir']);
   });
 });

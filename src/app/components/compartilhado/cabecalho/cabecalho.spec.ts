@@ -14,6 +14,6 @@ describe('CabecalhoComponent', () => {
 
     expect(elemento.querySelector('a')?.getAttribute('href')).toBe('#conteudo');
     const links = Array.from(elemento.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
-    expect(links).toEqual(['/', '/cientistas']);
+    expect(links).toEqual(['/', '/cientistas', '/sugerir']);
   });
 });
