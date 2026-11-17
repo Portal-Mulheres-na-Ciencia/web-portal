@@ -1,6 +1,15 @@
-import { Component, computed, effect, inject, input, numberAttribute, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  input,
+  numberAttribute,
+  signal,
+} from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { startWith, switchMap } from 'rxjs';
@@ -33,6 +42,8 @@ import { ItemLinhaDoTempo } from '../../core/item-linha-do-tempo';
 export class CientistaPage {
   private readonly cientistaService = inject(CientistaService);
   private readonly title = inject(Title);
+  private readonly meta = inject(Meta);
+  private readonly destroyRef = inject(DestroyRef);
 
   public readonly id = input.required({ transform: numberAttribute });
 
@@ -66,7 +77,40 @@ export class CientistaPage {
   constructor() {
     effect(() => {
       const cientista = this.cientista();
-      if (cientista) this.title.setTitle(`${cientista.nome} · ${NOME_SITE}`);
+      if (!cientista) return;
+
+      const titulo = `${cientista.nome} · ${NOME_SITE}`;
+      this.title.setTitle(titulo);
+
+      const descricao = cientista.biografia
+        ? cientista.biografia.length > 200
+          ? `${cientista.biografia.slice(0, 197)}...`
+          : cientista.biografia
+        : `Conheça a trajetória e contribuições de ${cientista.nome} na ciência.`;
+
+      // Atualiza tags Open Graph específicas do perfil
+      this.meta.updateTag({ property: 'og:title', content: titulo });
+      this.meta.updateTag({ property: 'og:description', content: descricao });
+      this.meta.updateTag({ property: 'og:type', content: 'profile' });
+      this.meta.updateTag({ property: 'og:url', content: `/cientista/${cientista.id}` });
+      this.meta.updateTag({ property: 'og:image', content: '/og-padrao.png' });
+
+      // Twitter Cards
+      this.meta.updateTag({ name: 'twitter:title', content: titulo });
+      this.meta.updateTag({ name: 'twitter:description', content: descricao });
+      this.meta.updateTag({ name: 'twitter:image', content: '/og-padrao.png' });
+    });
+
+    // Ao sair da página, restaura tags para o padrão do site
+    this.destroyRef.onDestroy(() => {
+      this.meta.updateTag({ property: 'og:title', content: NOME_SITE });
+      this.meta.updateTag({
+        property: 'og:description',
+        content:
+          'Conheça cientistas brasileiras e internacionais e suas contribuições para a ciência, a tecnologia, a engenharia e a matemática.',
+      });
+      this.meta.updateTag({ property: 'og:type', content: 'website' });
+      this.meta.updateTag({ property: 'og:image', content: '/og-padrao.png' });
     });
   }
 }
