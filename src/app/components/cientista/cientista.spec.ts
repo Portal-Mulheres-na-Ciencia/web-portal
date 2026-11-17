@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Meta, Title } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
+import { NOME_SITE } from '../../titulo-pagina';
 import { CientistaPage } from './cientista';
 import { cientistaServiceFalso, cientistaServiceForaDoAr } from '../../testes/cientista-service-falso';
 
@@ -25,6 +27,26 @@ describe('CientistaPage', () => {
     expect(elemento.querySelectorAll('app-contribuicao').length).toBe(2);
     expect(elemento.querySelectorAll('app-premiacao').length).toBe(2);
     expect(elemento.querySelectorAll('app-linha-do-tempo li').length).toBe(4);
+  });
+
+  it('deve atualizar as tags Open Graph e restaurá-las ao sair da página', async () => {
+    const meta = TestBed.inject(Meta);
+    const title = TestBed.inject(Title);
+
+    fixture.componentRef.setInput('id', 1);
+    await fixture.whenStable();
+
+    const tituloEsperado = `Marie Curie · ${NOME_SITE}`;
+    expect(title.getTitle()).toBe(tituloEsperado);
+    expect(meta.getTag('property="og:title"')?.content).toBe(tituloEsperado);
+    expect(meta.getTag('property="og:type"')?.content).toBe('profile');
+    expect(meta.getTag('property="og:url"')?.content).toBe('/cientista/1');
+    expect(meta.getTag('property="og:image"')?.content).toBe('/og-padrao.png');
+    expect(meta.getTag('name="twitter:title"')?.content).toBe(tituloEsperado);
+
+    fixture.destroy();
+    expect(meta.getTag('property="og:title"')?.content).toBe(NOME_SITE);
+    expect(meta.getTag('property="og:type"')?.content).toBe('website');
   });
 
   it('deve informar quando a cientista não existe', async () => {

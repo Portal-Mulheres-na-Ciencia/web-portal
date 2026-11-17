@@ -1,0 +1,72 @@
+<div class="container pagina-admin">
+  <header class="cabecalho-admin">
+    <div>
+      <p class="sobretitulo">Área da equipe</p>
+      <h1 class="titulo-pagina">Sugestões</h1>
+      <p class="texto-apoio">Cientistas sugeridas pelos visitantes do site.</p>
+    </div>
+  </header>
+
+  <div class="filtros" role="group" aria-label="Mostrar sugestões">
+    @for (opcao of filtros; track opcao.valor) {
+      <button
+        type="button"
+        class="filtro"
+        [class.ativo]="filtro() === opcao.valor"
+        [attr.aria-pressed]="filtro() === opcao.valor"
+        (click)="escolher(opcao.valor)"
+      >
+        {{ opcao.rotulo }}
+      </button>
+    }
+  </div>
+
+  @if (erro()) {
+    <app-erro-carregamento />
+  } @else if (sugestoes() === null) {
+    <p class="texto-apoio" role="status">Carregando sugestões…</p>
+  } @else if (sugestoes()!.length === 0) {
+    <app-estado-vazio icone="inbox" titulo="Nenhuma sugestão por aqui" mensagem="Quando um visitante sugerir uma cientista, ela aparece nesta lista." />
+  } @else {
+    <ul class="lista-sugestoes">
+      @for (sugestao of sugestoes(); track sugestao.id) {
+        <li class="cartao-admin">
+          <div class="topo">
+            <h2>{{ sugestao.nomeCientista }}</h2>
+            <span [class]="'selo selo-' + sugestao.status.toLowerCase()">
+              <mat-icon aria-hidden="true">{{ situacao[sugestao.status].icone }}</mat-icon>
+              {{ situacao[sugestao.status].texto }}
+            </span>
+          </div>
+          <p class="meta">
+            Nº {{ sugestao.id }} · enviada em {{ formatarData(sugestao.dataSugestao) }} por {{ sugestao.nomeSugestor }}
+            (<a [href]="linkResposta(sugestao)">{{ sugestao.emailSugestor }}</a>)
+            @if (sugestao.revisor) {
+              · avaliada por {{ sugestao.revisor }}
+            }
+          </p>
+          <p class="justificativa">{{ sugestao.justificativa }}</p>
+
+          <div class="acoes">
+            @if (sugestao.status === 'PENDENTE') {
+              <a matButton="filled" routerLink="/admin/cientistas/nova" [queryParams]="{ sugestao: sugestao.id }">
+                <mat-icon aria-hidden="true">person_add</mat-icon>Cadastrar cientista
+              </a>
+              <button matButton="outlined" type="button" (click)="recusar(sugestao)">
+                <mat-icon aria-hidden="true">block</mat-icon>Recusar
+              </button>
+            }
+            @if (sugestao.idCientista) {
+              <a matButton="outlined" [routerLink]="['/cientista', sugestao.idCientista]">
+                <mat-icon aria-hidden="true">visibility</mat-icon>Ver perfil
+              </a>
+            }
+            <a matButton [href]="linkResposta(sugestao)">
+              <mat-icon aria-hidden="true">mail</mat-icon>Responder por e-mail
+            </a>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>

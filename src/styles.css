@@ -183,3 +183,164 @@ html {
   scroll-padding-top: calc(var(--altura-cabecalho) + var(--esp-4));
   scroll-behavior: smooth;
 }
+
+/* ---------- Área da equipe ---------- */
+
+.pagina-admin {
+  padding-block: var(--esp-6) var(--esp-8);
+}
+
+.cabecalho-admin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--esp-4);
+  margin-bottom: var(--esp-5);
+
+  .titulo-pagina {
+    margin-bottom: var(--esp-1);
+  }
+}
+
+.cartao-admin {
+  padding: var(--esp-5);
+  border: var(--borda);
+  border-radius: var(--raio-m);
+  background: var(--mat-sys-surface-container-lowest);
+}
+
+.formulario-admin {
+  max-width: 52rem;
+
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: var(--esp-3);
+    margin: 0 0 var(--esp-5);
+    padding: var(--esp-5);
+    border: var(--borda);
+    border-radius: var(--raio-m);
+  }
+
+  legend {
+    padding: 0 var(--esp-2);
+    font: var(--mat-sys-title-medium);
+    font-weight: 600;
+  }
+}
+
+.lado-a-lado {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 0 var(--esp-4);
+}
+
+.erro-geral {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  margin: 0 0 var(--esp-4);
+  padding: var(--esp-3) var(--esp-4);
+  border-radius: var(--raio-p);
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}
+
+.erro-campo {
+  margin: 0;
+  color: var(--mat-sys-error);
+  font: var(--mat-sys-body-small);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+  margin-top: var(--esp-4);
+}
+
+.lista-admin {
+  margin: 0;
+  padding: 0;
+  border: var(--borda);
+  border-radius: var(--raio-m);
+  list-style: none;
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-3);
+    padding: var(--esp-4);
+  }
+
+  li + li {
+    border-top: var(--borda);
+  }
+
+  .dados {
+    display: flex;
+    flex-direction: column;
+    gap: var(--esp-1);
+  }
+
+  .detalhe {
+    color: var(--mat-sys-on-surface-variant);
+    font: var(--mat-sys-body-small);
+  }
+
+  .botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--esp-2);
+  }
+}
+
+.perigo {
+  --mat-button-text-label-text-color: var(--mat-sys-error);
+  --mat-icon-button-icon-color: var(--mat-sys-error);
+}
+
+/* Situação da sugestão: sempre com ícone e texto, nunca só com cor. */
+.selo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-1);
+  padding: var(--esp-1) var(--esp-3);
+  border-radius: var(--raio-total);
+  font: var(--mat-sys-label-medium);
+
+  mat-icon {
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+  }
+}
+
+.selo-pendente {
+  background: var(--cor-alerta-fundo);
+  color: var(--cor-alerta);
+}
+
+.selo-aprovada {
+  background: var(--cor-sucesso-fundo);
+  color: var(--cor-sucesso);
+}
+
+.selo-recusada {
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* Celular: menos espaço interno nos formulários da área da equipe, para os campos ficarem mais largos. */
+@media (max-width: 480px) {
+  .formulario-admin fieldset {
+    padding: var(--esp-3);
+  }
+
+  .cartao-admin {
+    padding: var(--esp-4);
+  }
+}

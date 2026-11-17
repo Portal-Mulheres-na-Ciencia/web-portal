@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { CientistaService } from '../../services/cientista';
-import { cientistaDoDia, periodoDeVida } from '../../util/cientista';
+import { cientistaDoDia, juntarInfo, periodoDeVida } from '../../util/cientista';
 import { aoFalhar } from '../../util/carregamento';
 import { Area } from '../../core/area';
 import { CardCientistaComponent } from '../compartilhado/card-cientista/card-cientista';
@@ -38,6 +38,7 @@ export class HomePage {
   protected readonly areas = toSignal(this.cientistaService.listarAreas().pipe(aoFalhar(this.erro, [])));
 
   protected readonly destaqueDoDia = computed(() => cientistaDoDia(this.cientistas() ?? []));
+  protected readonly juntar = juntarInfo;
   protected readonly periodoDestaque = computed(() => {
     const destaque = this.destaqueDoDia();
     return destaque ? periodoDeVida(destaque) : '';

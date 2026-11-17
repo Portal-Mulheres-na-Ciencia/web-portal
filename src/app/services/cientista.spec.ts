@@ -1,3 +1,4 @@
+import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
@@ -35,7 +36,7 @@ describe('CientistaService', () => {
 
     const [curie] = await resposta;
     expect(curie.biografia).toBe('Pioneira da radioatividade…');
-    expect(curie.dataNascimento.getFullYear()).toBe(1867);
+    expect(curie.dataNascimento?.getFullYear()).toBe(1867);
     expect(curie.dataFalecimento?.getDate()).toBe(4);
     expect(curie.areas[0].nome).toBe('Física');
   });
@@ -88,5 +89,26 @@ describe('CientistaService', () => {
     const data = lerData('1867-11-07')!;
     expect([data.getFullYear(), data.getMonth(), data.getDate()]).toEqual([1867, 10, 7]);
     expect(lerData(null)).toBeUndefined();
+  });
+
+  it('no servidor (SSR/prerender), usa dados-exemplo quando BUILD_API_URL não está definida', async () => {
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: PLATFORM_ID, useValue: 'server' },
+      ],
+    });
+    const serverService = TestBed.inject(CientistaService);
+    http = TestBed.inject(HttpTestingController);
+
+    const curie = await firstValueFrom(serverService.buscar(1));
+    const lista = await firstValueFrom(serverService.listar());
+    const areas = await firstValueFrom(serverService.listarAreas());
+
+    expect(curie?.nome).toBe('Marie Curie');
+    expect(lista.length).toBe(11);
+    expect(areas.length).toBeGreaterThan(0);
   });
 });

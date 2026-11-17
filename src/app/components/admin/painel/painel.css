@@ -1,0 +1,35 @@
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--esp-4);
+  margin: 0 0 var(--esp-5);
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--esp-1);
+  }
+
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
+
+  strong {
+    font-family: var(--fonte-titulo);
+    font-size: 2.5rem;
+    line-height: 1.1;
+    color: var(--mat-sys-on-surface);
+  }
+
+  span {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  a {
+    margin-top: var(--esp-2);
+    margin-left: calc(-1 * var(--esp-3));
+  }
+}

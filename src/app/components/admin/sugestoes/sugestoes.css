@@ -1,0 +1,67 @@
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin-bottom: var(--esp-5);
+}
+
+.filtro {
+  padding: var(--esp-2) var(--esp-4);
+  border: var(--borda);
+  border-radius: var(--raio-total);
+  background: transparent;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-label-large);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--mat-sys-surface-container);
+  }
+
+  &.ativo {
+    border-color: transparent;
+    background: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
+  }
+}
+
+.lista-sugestoes {
+  display: grid;
+  gap: var(--esp-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-2);
+
+  h2 {
+    margin: 0;
+    font: var(--mat-sys-title-large);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+  }
+}
+
+.meta {
+  margin: var(--esp-1) 0 var(--esp-3);
+
+  a {
+    color: var(--mat-sys-primary);
+  }
+
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-small);
+  overflow-wrap: anywhere;
+}
+
+.justificativa {
+  margin: 0;
+  max-width: var(--largura-leitura);
+  white-space: pre-line;
+}
