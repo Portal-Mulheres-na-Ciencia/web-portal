@@ -1,43 +1,43 @@
-<section class="hero-fundo">
+<section class="hero">
+  <div class="container conteudo">
+    <app-monograma [nome]="cientista().nome" [id]="cientista().id" tamanho="g" />
 
-  <mat-card class="hero-card" appearance="outlined">
-    <mat-card-content class="conteudo-interno">
-
-      <div class="linha-meta topo">
-        <div class="icone-texto">
-          <mat-icon>globe</mat-icon>
-          <span>{{ cientista().nacionalidade }}</span>
-        </div>
-        <div class="icone-texto">
-          <mat-icon>school</mat-icon>
-          <span>{{ cientista().instituicao }}</span>
-        </div>
-      </div>
-
+    <div class="identificacao">
       <h1 class="titulo">{{ cientista().nome }}</h1>
 
-      <div class="linha-meta meio">
-        <span class="vida">{{ cientista().dataNascimento.getFullYear() }} — {{ cientista().dataFalecimento ? cientista().dataFalecimento!.getFullYear() : "Atual" }}</span>
-        <mat-chip-set class="areas" aria-label="Áreas de destaque">
-          @for (area of cientista().areas; track area.id) {
-            <mat-chip appearance="outlined">{{ area.nome }}</mat-chip>
-          }
-        </mat-chip-set>
-      </div>
+      <dl class="meta">
+        <div>
+          <dt><mat-icon aria-hidden="true">event</mat-icon><span class="sr-only">Período</span></dt>
+          <dd>{{ periodo() }}</dd>
+        </div>
+        <div>
+          <dt><mat-icon aria-hidden="true">public</mat-icon><span class="sr-only">Nacionalidade</span></dt>
+          <dd>{{ cientista().nacionalidade }}</dd>
+        </div>
+        <div>
+          <dt><mat-icon aria-hidden="true">account_balance</mat-icon><span class="sr-only">Instituição</span></dt>
+          <dd>{{ cientista().instituicao }}</dd>
+        </div>
+      </dl>
 
-      <p class="biografia">
-        {{ cientista().biografia }}
-      </p>
+      <ul class="areas" aria-label="Áreas de atuação">
+        @for (area of cientista().areas; track area.id) {
+          <li>
+            <a routerLink="/cientistas" [queryParams]="{ area: area.id }">{{ area.nome }}</a>
+          </li>
+        }
+      </ul>
+    </div>
 
-    </mat-card-content>
-    <button matButton="filled" class="btn-acao-compacta">
-      <mat-icon>share</mat-icon>
+    <button matButton="outlined" type="button" class="compartilhar" (click)="compartilhar()">
+      <mat-icon aria-hidden="true">share</mat-icon>
       Compartilhar
     </button>
-  </mat-card>
-
-  <div class="setinha" (click)="rolarParaSecao('contribuicoes')">
-    <mat-icon>keyboard_double_arrow_up</mat-icon>
   </div>
 
+  <nav class="container secoes" aria-label="Seções do perfil">
+    @for (secao of secoes; track secao.ancora) {
+      <a [routerLink]="[]" [fragment]="secao.ancora">{{ secao.rotulo }}</a>
+    }
+  </nav>
 </section>

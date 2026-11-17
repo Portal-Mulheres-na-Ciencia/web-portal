@@ -1,1 +1,14 @@
-<p>contribuicao works!</p>
+<article class="contribuicao">
+  <p class="ano"><span class="sr-only">Ano: </span>{{ contribuicao().ano }}</p>
+  <div>
+    <h3 class="titulo">{{ contribuicao().titulo }}</h3>
+    <p class="descricao">{{ contribuicao().descricao }}</p>
+    @if (contribuicao().linkReferencia) {
+      <a class="fonte" [href]="contribuicao().linkReferencia" target="_blank" rel="noopener">
+        Ver fonte
+        <mat-icon aria-hidden="true">open_in_new</mat-icon>
+        <span class="sr-only">(abre em nova aba)</span>
+      </a>
+    }
+  </div>
+</article>
